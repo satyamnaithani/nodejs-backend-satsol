@@ -8,7 +8,7 @@ const PurchaseController = require('../controllers/purchase')
 
 
 exports._stock_get_all_item = (req, res, next) => {
-    Stock.find()
+    Stock.find().sort({'item': 1})
     .exec()
     .then(docs => {
       const response = {
