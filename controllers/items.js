@@ -49,6 +49,12 @@ exports.items_get_all_item_name =  (req, res, next) => {
         : global.count >= 10 && global.count <= 99 ?
           'CM0' + global.count
           : 'CM' + global.count
+    } else if(req.body.catogory === 'Service'){
+        global.itemCode = global.count < 10 ?
+        'SE00' + global.count
+        : global.count >= 10 && global.count <= 99 ?
+          'SE0' + global.count
+          : 'SE' + global.count
     }else {
         res.status(500).json('Catogory Not Found!')
     }
