@@ -35,7 +35,7 @@ exports.items_create_item =  async (req, res, next) => {
             : 'ME' + global.count
             break;
 
-        case 'Spears':
+        case 'Spares':
             global.itemCode = global.count < 10 ?
             'SP00' + global.count
             : global.count >= 10 && global.count <= 99 ?
