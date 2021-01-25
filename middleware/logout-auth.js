@@ -1,6 +1,5 @@
 const BlacklistedTokens = require('../models/blacklistedTokens')
 
-
 exports.logout_auth = (req, res, next) => {
    
     const token = req.body.token;
@@ -9,7 +8,7 @@ exports.logout_auth = (req, res, next) => {
         time: new Date()  
     });
     value.save().then(result=> res.status(200).json(result)).catch(err=> res.status(404).json(err))
- }
+}
 
 exports.delete_blacklisted_tokens = (req, res, next) => {
     var date = new Date();
@@ -22,8 +21,7 @@ exports.delete_blacklisted_tokens = (req, res, next) => {
           $lt: newDate
         }   
       }).then(result=> res.status(200).json(result))
-      .catch(err => res.status(404).json(err))
-  
+      .catch(err => res.status(404).json(err)) 
 } 
 
 

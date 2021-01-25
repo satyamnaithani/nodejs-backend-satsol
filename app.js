@@ -1,9 +1,9 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const app = express();
 
 //const productRoutes = require('./routes/products');
 const orderRoutes = require("./routes/orders");
@@ -18,11 +18,6 @@ const purchaseRoute = require("./routes/purchase");
 const productsRoute = require("./routes/products");
 const logoutRoute = require("./routes/logout-auth");
 const expenseRoute = require("./routes/expenses");
-// var allowCrossDomain = function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*"); // allow requests from any other server
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'); // allow these verbs
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cache-Control");
-// }
 
 //app.use(allowCrossDomain); // plumbing it in as middleware
 app.use(cors());
