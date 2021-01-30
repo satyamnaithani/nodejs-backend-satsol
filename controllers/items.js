@@ -121,7 +121,6 @@ exports.items_create_item =  async (req, res, next) => {
 
 exports.items_get_item_details =  (req, res, next) => {
     Item.find({name: req.params.itemName})
-    .sort({'name': 1})
     .exec()
     .then(item => {
         res.status(200).json({
