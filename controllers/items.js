@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 exports.items_get_all_item_name =  (req, res, next) => {
     Item.find()
+    .sort({'itemCode': 1})
     .exec()
     .then(docs => {
         res.status(200).json({
@@ -98,7 +99,6 @@ exports.items_create_item =  async (req, res, next) => {
     });
     await item.save()
     .then(result => {
-        console.log(result);
         res.status(201).json({
             message: 'Created Item Successfully!',
             createdProduct: {
@@ -121,6 +121,7 @@ exports.items_create_item =  async (req, res, next) => {
 
 exports.items_get_item_details =  (req, res, next) => {
     Item.find({name: req.params.itemName})
+    .sort({'name': 1})
     .exec()
     .then(item => {
         res.status(200).json({
@@ -137,7 +138,6 @@ exports.items_get_item_details =  (req, res, next) => {
 exports.items_update_item =  (req, res, next) => {
     const id = req.params.id;
     Item.update({_id: id}, { $set: { 
-         catogory: req.body.category,
           name: req.body.name,
           hsn: req.body.hsn,
           gst: req.body.gst,
