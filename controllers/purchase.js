@@ -66,10 +66,9 @@ exports.purchase_create_purchase = (req, res, next) => {
 
 exports.purchase_get_total_purchase_amount = (req, res, next) => {
     var date = new Date()
-  var quarterly_month = date.toISOString().split('-')[1] <= 9 ? '0' + (date.toISOString().split('-')[1] - 4) : date.toISOString().split('-')[1] - 3
-  var quarterlyDate = new Date(date.toISOString().split('-')[0] + '-' + quarterly_month + '-' + '01' + 'T' + '00:00:00.000Z')
+    const quarterlyDate = new Date(date.setMonth(date.getMonth() - 12))
     Purchase.find({
-        "billDate": { $gte: quarterlyDate, $lte: date }
+        "billDate": { $gte: quarterlyDate, $lte: new Date }
       })
         .exec()
         .then(docs => {
