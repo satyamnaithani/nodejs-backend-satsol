@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
-
 const Purchase = require('../models/purchase');
+const { ToWords } = require('to-words');
 
+const toWords = new ToWords({
+  localeCode: 'en-IN',
+  converterOptions: {
+    currency: true,
+    ignoreDecimal: false,
+    ignoreZeroCurrency: false,
+  }
+});
 
 exports.purchase_get_all_item = (req, res, next) => {
     Purchase.find()
@@ -86,7 +94,8 @@ exports.purchase_get_total_purchase_amount = (req, res, next) => {
                 rate: totalRate.toFixed(2),
                 gst: totalGst.toFixed(2),
                 total: totalPrice.toFixed(2),
-                quarterlyMonthStartDate: quarterlyDate.toDateString()
+                quarterlyMonthStartDate: quarterlyDate.toDateString(),
+                grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
             }
             res.status(200).json(response)
 
