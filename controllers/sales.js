@@ -280,41 +280,37 @@ exports.sales_get_monthly_sale_details = (req, res, next) => {
     })
 }
 exports.sales_get_quarterly_sale_details = (req, res, next) => {
-  var date = new Date()
-  var quarterly_month = date.toISOString().split('-')[1] <= 9 ? '0' + (date.toISOString().split('-')[1] - 4) : date.toISOString().split('-')[1] - 3
-  var quarterlyDate = new Date(date.toISOString().split('-')[0] + '-' + quarterly_month + '-' + '01' + 'T' + '00:00:00.000Z')
-  //console.log(quarterlyDate);
+  let date = new Date()
+  const quarterlyDate = new Date(date.setMonth(date.getMonth() - 12))
   Sales.find({
-    "date": { $gte: quarterlyDate, $lte: date }
+    "date": { $gte: quarterlyDate, $lte: new Date }
   })
-    .exec()
-    .then(docs => {
-      var totalPrice = 0,
-        totalRate = 0,
-        totalGst = 0
-      for (var i = 0; i < docs.length; i++) {
-        totalRate = totalRate + docs[i].totalRate;
-        totalGst = totalGst + docs[i].totalGst;
-        totalPrice = totalGst + totalRate
-      }
-
-      const response = {
-        count: docs.length,
-        rate: parseFloat(totalRate.toFixed(2)),
-        gst: parseFloat(totalGst.toFixed(2)),
-        total: parseFloat(totalPrice.toFixed(2)),
-        quarterlyMonthStartDate: quarterlyDate.toDateString(),
-        grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
-      }
-      res.status(200).json(response)
+  .exec()
+  .then(docs => {
+    var totalPrice = 0,
+      totalRate = 0,
+      totalGst = 0
+    for (var i = 0; i < docs.length; i++) {
+      totalRate = totalRate + docs[i].totalRate;
+      totalGst = totalGst + docs[i].totalGst;
+      totalPrice = totalGst + totalRate
+    }
+    const response = {
+      count: docs.length,
+      rate: parseFloat(totalRate.toFixed(2)),
+      gst: parseFloat(totalGst.toFixed(2)),
+      total: parseFloat(totalPrice.toFixed(2)),
+      quarterlyMonthStartDate: quarterlyDate.toDateString(),
+      grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
+    }
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      })
-
-    })
+  })
 }
 
 exports.sales_get_last_month_sale_details = (req, res, next) => {
