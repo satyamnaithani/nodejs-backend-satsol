@@ -6,7 +6,7 @@ const stockSchema = mongoose.Schema({
     lotNo: { type: String },
     billNo: { type: String },
     exp: { type: Date },
-    vendor: { type: String },
+    vendor: { type: String, required: true },
     initialQuantity: { type: Number, default: 1},
     quantity: { type: Number, required: true},
     rate: { type: Number, required: true },
