@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 exports.items_get_all_item_name =  (req, res, next) => {
     Item.find()
-    .sort({'itemCode': 1})
+    .sort({'name': 1})
     .exec()
     .then(docs => {
         res.status(200).json({
@@ -121,6 +121,7 @@ exports.items_create_item =  async (req, res, next) => {
 
 exports.items_get_item_details =  (req, res, next) => {
     Item.find({name: req.params.itemName})
+    .sort({'name': 1})
     .exec()
     .then(item => {
         res.status(200).json({
