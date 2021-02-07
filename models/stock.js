@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const stockSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     item: { type: String, required: true },
-    lotNo: { type: String },
+    lotNo: { type: String, required: true },
     billNo: { type: String },
     exp: { type: Date },
     vendor: { type: String, required: true },

@@ -4,7 +4,7 @@ const salesSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId, 
     orderData: {type: Array, required: true},
     customer: {type: Object, required: true},
-    customerName: {type: String},
+    customerName: {type: String, required: true},
     date: {type: Date, required: true},
     totalRate: {type: Number},
     totalGst: {type: Number},

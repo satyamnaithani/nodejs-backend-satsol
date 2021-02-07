@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 
 const itemSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    catogory: { type: String },
-    name: { type: String },
-    hsn: { type: String },
-    gst: {type: String},
-    uom: {type: String},
-    itemCode: {type: String},
-    addedBy: {type: String}
+    catogory: { type: String, required: true },
+    name: { type: String, required: true },
+    hsn: { type: String, required: true },
+    gst: {type: String, required: true},
+    uom: {type: String, required: true},
+    itemCode: {type: String, required: true},
+    addedBy: {type: String, required: true}
 });
 
 module.exports = mongoose.model('Item', itemSchema)
