@@ -1,38 +1,29 @@
-
 const Customer = require('../models/customers')
 const mongoose = require('mongoose');
 
-
 exports.customers_get_all_customers= (req, res, next) => {
     Customer.find()
-    //.select('name')
     .exec()
     .then(docs => {
-      const response = {
-          count: docs.length,
-          items: docs.map(doc => {
-              return {
-                data: doc
-              }
-          })
-      }
-      res.status(200).json(response)
-  
-  })
+        const response = {
+            count: docs.length,
+            items: docs.map(doc => {
+                return { data: doc }
+            })
+        }
+        res.status(200).json(response)
+    })
     .catch(err => {
         console.log(err);
         res.status(500).json({
             error:err
         })
-  
     })
 }
 
-
-  exports.customers_create_customers = async (req, res, next) => {
+exports.customers_create_customers = async (req, res, next) => {
     global.count;
     await Customer.find().countDocuments().exec().then(res => { global.count = ++res });
-
     const customer = new Customer({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -91,7 +82,7 @@ exports.customers_update_customer =  (req, res, next) => {
          dl: req.body.dl,
          contact: req.body.contact,
          person: req.body.person
-        } })
+        }})
       .exec()
       .then(response => {
           res.status(201).json({
@@ -102,22 +93,21 @@ exports.customers_update_customer =  (req, res, next) => {
           console.log(err);
           res.status(500).json({error: err})
       })
-
     }
-    exports.customers_delete_customer = (req, res, next) => {
-        const id = req.params.id;
-        Product.remove({_id: id})
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                message: 'Product deleted',
-                result: result
-            })
+exports.customers_delete_customer = (req, res, next) => {
+    const id = req.params.id;
+    Product.remove({_id: id})
+    .exec()
+    .then(result => {
+        res.status(200).json({
+            message: 'Product deleted',
+            result: result
         })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({
-                error: err
-            });
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            error: err
         });
-    }
+    });
+}

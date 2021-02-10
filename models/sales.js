@@ -9,7 +9,7 @@ const salesSchema = mongoose.Schema({
     totalRate: {type: Number},
     totalGst: {type: Number},
     grandTotal: {type: Number},
-    invoiceNo: {type: String},
+    invoiceNo: {type: String, required: true},
     challanNo: {type: String},
     challanDate: {type: Date},
     modeOfPayment: {type: String},

@@ -1,5 +1,4 @@
-
-const Vendor = require('../models/vendor')
+const Vendor = require('../models/vendor');
 const mongoose = require('mongoose');
 
 exports.vendors_get_all_vendors =  (req, res, next) => {
@@ -14,8 +13,7 @@ exports.vendors_get_all_vendors =  (req, res, next) => {
                 }
             })
         }
-        res.status(200).json(response)
-    
+        res.status(200).json(response);
     })
     .catch(err => {
         res.status(500).json({
@@ -23,7 +21,6 @@ exports.vendors_get_all_vendors =  (req, res, next) => {
         })
     });
 }
-
 
 exports.vendors_get_all_vendor_name =  (req, res, next) => {
     Vendor.find()
@@ -37,7 +34,6 @@ exports.vendors_get_all_vendor_name =  (req, res, next) => {
                     name: doc
                 }
             })
-           
         });
     })
     .catch(err => {
@@ -47,8 +43,7 @@ exports.vendors_get_all_vendor_name =  (req, res, next) => {
     });
 }
 
-
-  exports.vendors_create_vendor =  async (req, res, next) => {
+exports.vendors_create_vendor =  async (req, res, next) => {
     global.count;
     await Vendor.find().countDocuments().exec().then(res => { global.count = ++res });
     const vendor = new Vendor({
@@ -86,8 +81,7 @@ exports.vendors_get_all_vendor_name =  (req, res, next) => {
                 dl: result.gst,
                 contact: result.contact,
                 person: result.person,
-                addedBy: result.addedBy
-                
+                addedBy: result.addedBy 
             }
         })
     })
@@ -96,7 +90,6 @@ exports.vendors_get_all_vendor_name =  (req, res, next) => {
         res.status(500).json({error: err});
     });
 }
-
 
 exports.vendors_update_customer =  (req, res, next) => {
     const id = req.params.id;  
@@ -111,37 +104,35 @@ exports.vendors_update_customer =  (req, res, next) => {
          contact: req.body.contact,
          person: req.body.person
         } })
-      .exec()
-      .then(response => {
-          res.status(201).json({
-              message: 'Customer updated',
-              request: {
-                  type: 'GET',
-                  url: 'http://localhost:3000/products/' + id
-              }
-          });
-      })
-      .catch(err => {
-          console.log(err);
-          res.status(500).json({error: err})
-      })
-
-    }
-    exports.vendors_delete_customer = (req, res, next) => {
-        const id = req.params.id;
-        Vendor.remove({_id: id})
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                message: 'Product deleted',
-                result: result
-            })
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({
-                error: err
-            });
+    .exec()
+    .then(response => {
+        res.status(201).json({
+            message: 'Customer updated',
+            request: {
+                type: 'GET',
+                url: 'http://localhost:3000/products/' + id
+            }
         });
-    }
-
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err})
+    })
+}
+exports.vendors_delete_customer = (req, res, next) => {
+    const id = req.params.id;
+    Vendor.remove({_id: id})
+    .exec()
+    .then(result => {
+        res.status(200).json({
+            message: 'Product deleted',
+            result: result
+        })
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            error: err
+        });
+    });
+}

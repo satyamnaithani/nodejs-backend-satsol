@@ -4,9 +4,6 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
-
-//const productRoutes = require('./routes/products');
-const orderRoutes = require("./routes/orders");
 const userRoutes = require("./routes/user");
 const vendorRoutes = require("./routes/vendors");
 const customersRoutes = require("./routes/customers");
@@ -15,7 +12,6 @@ const stockRoute = require("./routes/stock");
 const pdfInvoice = require("./routes/invoice_pdf");
 const salesRoute = require("./routes/sales");
 const purchaseRoute = require("./routes/purchase");
-const productsRoute = require("./routes/products");
 const logoutRoute = require("./routes/logout-auth");
 const expenseRoute = require("./routes/expenses");
 
@@ -43,8 +39,6 @@ app.use(
 app.use(bodyParser.json());
 
 // Routes which handle requests
-app.use("/products", productsRoute);
-app.use("/orders", orderRoutes);
 app.use("/user", userRoutes);
 app.use("/vendors", vendorRoutes);
 app.use("/customers", customersRoutes);

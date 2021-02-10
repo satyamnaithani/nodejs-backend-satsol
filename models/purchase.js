@@ -9,7 +9,7 @@ const purchaseSchema = mongoose.Schema({
     vendor: { type: String, required: true },
     quantity: { type: Number, required: true},
     rate: { type: Number, required: true },
-    gst: { type: Number },
+    gst: { type: Number, required: true },
     purchaseRate: { type: Number },
     receiveDate: { type: Date },
     billDate: {type: Date},

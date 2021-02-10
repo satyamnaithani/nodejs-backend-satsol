@@ -12,8 +12,7 @@ exports.items_get_all_item_name =  (req, res, next) => {
                 return {
                     name: doc
                 }
-            })
-           
+            })  
         });
     })
     .catch(err => {
