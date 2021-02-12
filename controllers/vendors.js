@@ -66,7 +66,6 @@ exports.vendors_create_vendor =  async (req, res, next) => {
     });
     await vendor.save()
     .then(result => {
-        console.log(result);
         res.status(201).json({
             message: 'Created Vendor Successfully!',
             createdProduct: {
@@ -107,11 +106,7 @@ exports.vendors_update_customer =  (req, res, next) => {
     .exec()
     .then(response => {
         res.status(201).json({
-            message: 'Customer updated',
-            request: {
-                type: 'GET',
-                url: 'http://localhost:3000/products/' + id
-            }
+            message: 'Customer updated'
         });
     })
     .catch(err => {

@@ -9,9 +9,9 @@ const vendorSchema = mongoose.Schema({
     state: { type: String, required: true },
     zip: { type: String, required: true },
     gst: { type: String, required: true },
-    dl: { type: String, required: true },
-    contact: { type: String, required: true },
-    person: { type: String, required: true },
+    dl: { type: String },
+    contact: { type: String },
+    person: { type: String },
     addedBy: {type: String, required: true }
 });
 
