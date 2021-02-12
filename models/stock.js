@@ -7,17 +7,17 @@ const stockSchema = mongoose.Schema({
     billNo: { type: String },
     exp: { type: Date },
     vendor: { type: String, required: true },
-    initialQuantity: { type: Number, default: 1},
-    quantity: { type: Number, required: true},
+    initialQuantity: { type: Number, default: 1 },
+    quantity: { type: Number, required: true },
     rate: { type: Number, required: true },
     gst: { type: Number, required: true },
     purchaseRate: { type: Number },
     receiveDate: { type: Date },
-    billDate: {type: Date},
-    uom: {type: String, required: true},
-    hsn: {type: String, required: true},
-    itemCode: {type: String, required: true},
-    addedBy: {type: String}
+    billDate: { type: Date },
+    uom: { type: String, required: true },
+    hsn: { type: String, required: true },
+    itemCode: { type: String, required: true },
+    addedBy: { type: String }
 });
 
 module.exports = mongoose.model('Stock', stockSchema);
