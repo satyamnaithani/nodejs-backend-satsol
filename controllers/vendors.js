@@ -43,51 +43,34 @@ exports.vendors_get_all_vendor_name =  (req, res, next) => {
     });
 }
 
-exports.vendors_create_vendor =  async (req, res, next) => {
-    global.count;
-    await Vendor.find().countDocuments().exec().then(res => { global.count = ++res });
-    const vendor = new Vendor({
-        _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        code: global.count < 10 ?
-        'VR00' + global.count
-        : global.count >= 10 && global.count <= 99 ?
-          'VR0' + global.count
-          : 'VR' + global.count,
-        address: req.body.address,
-        city: req.body.city,
-        state: req.body.state,
-        zip: req.body.zip,
-        gst: req.body.gst,
-        dl: req.body.dl,
-        contact: req.body.contact,
-        person: req.body.person,
-        addedBy: req.body.addedBy
-    });
-    await vendor.save()
-    .then(result => {
-        res.status(201).json({
-            message: 'Created Vendor Successfully!',
-            createdProduct: {
-                _id: result._id,
-                name: result.name,
-                code:result.code,
-                address: result.address,
-                city: result.city,
-                state: result.state,
-                zip: result.zip,
-                gst: result.gst,
-                dl: result.gst,
-                contact: result.contact,
-                person: result.person,
-                addedBy: result.addedBy 
-            }
+exports.vendors_create_vendor = (req, res, next) => {
+    let vendorCount = null;
+    Vendor.find().countDocuments().exec().then(result => { 
+        vendorCount = ++result;
+        const vendor = new Vendor({
+            _id: new mongoose.Types.ObjectId(),
+            name: req.body.name,
+            code: get_vendor_code(vendorCount),
+            address: req.body.address,
+            city: req.body.city,
+            state: req.body.state,
+            zip: req.body.zip,
+            gst: req.body.gst,
+            dl: req.body.dl,
+            contact: req.body.contact,
+            person: req.body.person,
+            addedBy: req.body.addedBy
+        });
+        vendor.save().then((result) => {
+            res.status(201).json({
+                message: 'Created Vendor Successfully!'
+            }).catch(err => {
+                res.status(500).json({error: err})
+            })
         })
+    }).catch(err => {
+        res.status(500).json({error: err})
     })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({error: err});
-    });
 }
 
 exports.vendors_update_customer =  (req, res, next) => {
@@ -130,4 +113,17 @@ exports.vendors_delete_customer = (req, res, next) => {
             error: err
         });
     });
+}
+
+//Common functions
+const get_vendor_code = (count) => {
+    let vendorCode = null;
+    if(count < 10) {
+        vendorCode = 'VR00' + count;
+    } else if(count >= 10 && count <= 99) {
+        vendorCode = 'VR0' + count;
+    } else {
+        'VR' + count;
+    }
+    return vendorCode;
 }

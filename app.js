@@ -24,8 +24,13 @@ app.use(cors());
 //     "@cluster0-wmljt.mongodb.net/test?retryWrites=true&w=majority"
 // );
 
+// mongoose.connect(
+//   "mongodb+srv://satsol:2346@cluster0.0xn3d.mongodb.net/test?retryWrites=true&w=majority"
+// );
+
+//Optimize Testing Database
 mongoose.connect(
-  "mongodb+srv://satsol:2346@cluster0.0xn3d.mongodb.net/test?retryWrites=true&w=majority"
+  "mongodb+srv://satsol:2346@cluster0.bc5ga.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 );
 
 mongoose.Promise = global.Promise;
