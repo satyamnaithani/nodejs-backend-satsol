@@ -13,18 +13,10 @@ const toWords = new ToWords({
 
 exports.purchase_get_all_item = (req, res, next) => {
     Purchase.find()
+        .sort({billDate: -1})
         .exec()
         .then(purchase => {
-            const response = {
-                count: purchase.length,
-                purchase: purchase.map(doc => {
-                    return {
-                        doc
-                    }
-                })
-            }
-            res.status(200).json(response)
-
+            res.status(200).json(purchase)
         })
         .catch(err => {
             console.log(err);
