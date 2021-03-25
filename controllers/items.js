@@ -5,16 +5,7 @@ exports.items_get_all_item_name =  (req, res, next) => {
     Item.find()
     .sort({'name': 1})
     .exec()
-    .then(docs => {
-        res.status(200).json({
-            count: docs.length,
-            items: docs.map(doc => {
-                return {
-                    name: doc
-                }
-            })  
-        });
-    })
+    .then(docs => {res.status(200).json(docs) })
     .catch(err => {
         res.status(500).json({
             error: err
@@ -118,21 +109,6 @@ exports.items_create_item =  async (req, res, next) => {
     });
 }
 
-exports.items_get_item_details =  (req, res, next) => {
-    Item.find({name: req.params.itemName})
-    .sort({'name': 1})
-    .exec()
-    .then(item => {
-        res.status(200).json({
-            item: item
-        });
-    })
-    .catch(err => {
-        res.status(500).json({
-            error: err
-        });
-    });
-}
 
 exports.items_update_item =  (req, res, next) => {
     const id = req.params.id;
