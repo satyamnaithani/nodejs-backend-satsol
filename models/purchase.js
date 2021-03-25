@@ -16,6 +16,7 @@ const purchaseSchema = mongoose.Schema({
     uom: {type: String, required: true},
     hsn: {type: String, required: true},
     itemCode: {type: String, required: true},
+    transaction: [Object],
     addedBy: {type: String}
 });
 

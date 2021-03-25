@@ -11,25 +11,64 @@ const toWords = new ToWords({
   }
 });
 
-exports.purchase_get_all_item = (req, res, next) => {
-    Purchase.find()
-        .sort({billDate: -1})
-        .exec()
-        .then(purchase => {
-            res.status(200).json(purchase)
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            })
+// exports.purchase_get_all_item = (req, res, next) => {
+//     Purchase.find()
+//         .sort({billDate: -1})
+//         .exec()
+//         .then(purchase => {
+//             res.status(200).json(purchase)
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.status(500).json({
+//                 error: err
+//             })
 
+//         })
+// }
+
+exports.purchase_get_all_item = (req, res, next) => {
+    Purchase.aggregate([
+        {
+            $group:{
+                _id: {
+                    billNo: "$billNo",
+                    vendor: "$vendor",
+                    billDate: "$billDate",
+                    transaction: "$transaction"
+
+                },
+                //billDetails: {$push: "$$ROOT"}
+                billDetails: {
+                    $push: {
+                        _id: "$_id",
+                        item: "$item",
+                        lotNo: "$lotNo",
+                        exp: "$exp",
+                        quantity: "$quantity",
+                        amount: {"$multiply" : ["$purchaseRate", "$quantity"]} 
+                    }
+                }
+            }
+        },
+        {
+            $sort : {"_id.billDate": -1}
+        }
+    ])
+    .then(purchase => {
+        res.status(200).json(purchase)
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
         })
+
+    })
 }
 
 // creating purchase is auotomatically done when entering stock details. method invoked in stock.js post file.
 exports.purchase_create_purchase = (req, res, next) => {
-
     const purchase = new Purchase({
         _id: new mongoose.Types.ObjectId(),
         item: req.body.item,
@@ -99,4 +138,22 @@ exports.purchase_get_total_purchase_amount = (req, res, next) => {
             })
 
         })
+}
+
+exports.purchase_update_transaction =  (req, res, next) => {
+    Purchase.updateMany({_id: { $in: req.body.idArray}}, { $set: { 
+        transaction : req.body.transaction
+       }})
+      .exec()
+      .then(response => {
+          res.status(201).json({
+              message: 'success',
+              status: response
+          })
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json({error: err})
+      })
+
 }
