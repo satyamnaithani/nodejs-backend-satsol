@@ -14,5 +14,6 @@ router.get('/sales-chart-current-month',checkAuth, SalesController.sales_get_cur
 router.get('/sales-chart-previous-month',checkAuth, SalesController.sales_get_previous_month_sale_details_chart);
 router.get('/sales-history-chart/:type/:e', SalesController.sales_get_sale_history_details_chart); // type = Quarterly || Halfyearly || Anually
 router.get('/profits',checkAuth, SalesController.sales_get_monthly_profit_details);
+router.put('/transaction/:id',checkAuth, SalesController.sales_update_transaction);
 
 module.exports = router;

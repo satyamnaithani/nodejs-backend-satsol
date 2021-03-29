@@ -11,22 +11,6 @@ const toWords = new ToWords({
   }
 });
 
-// exports.purchase_get_all_item = (req, res, next) => {
-//     Purchase.find()
-//         .sort({billDate: -1})
-//         .exec()
-//         .then(purchase => {
-//             res.status(200).json(purchase)
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.status(500).json({
-//                 error: err
-//             })
-
-//         })
-// }
-
 exports.purchase_get_all_item = (req, res, next) => {
     Purchase.aggregate([
         {

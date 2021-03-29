@@ -480,3 +480,22 @@ exports.sales_get_monthly_profit_details = (req, res, next) => {
     })
   })
 }
+
+exports.sales_update_transaction =  (req, res, next) => {
+  const id = req.params.id;
+  Sales.update({_id: id}, { $set: { 
+      transaction : req.body.transaction
+     }})
+    .exec()
+    .then(response => {
+        res.status(201).json({
+            message: 'success',
+            status: response
+        })
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err})
+    })
+
+}
