@@ -314,13 +314,13 @@ module.exports = (arr) => {
 							Expiry:
 							</div>
 						</td>
-						<td>${7646}</td>
-						<td>${82}</td>
-						<td>${No.}</td>
-						<td>${r65757}</td>
-						<td>${6575765}</td>
-						<td>${t5r6576}</td>
-						<td>${858}</td>
+						<td>7646</td>
+						<td>82</td>
+						<td>No.</td>
+						<td>r65757</td>
+						<td>6575765</td>
+						<td>t5r657</td>
+						<td>858</td>
 						<td>789</td>
 					</tr>
 				</table>
