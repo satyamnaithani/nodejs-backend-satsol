@@ -77,7 +77,7 @@ table {
 }
 body {
     height: 940px;
-    width: 800px;
+    width: 700px;
     margin: auto;
     font-family: 'Open Sans', sans-serif;
     font-size: 12px;
