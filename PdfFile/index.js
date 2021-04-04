@@ -76,7 +76,7 @@ module.exports = (arr) => {
 	}
 	body {
 		height: 940px;
-		width: 750px;
+		width: 650px;
 		margin: auto;
 		font-family: 'Open Sans', sans-serif;
 		font-size: 13px;
@@ -133,7 +133,7 @@ module.exports = (arr) => {
 	}
 	.sub-details-two {
 		float: right;
-		width: 49.7%;
+		width: 49.5%;
 	}
 	.float-left {
 		float: left;
