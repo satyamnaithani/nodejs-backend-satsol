@@ -45,8 +45,7 @@ module.exports = (arr) => {
 	<head>
 		<meta charset="UTF-8">
 		<title>Invoice</title>
-		<style type="text/css">
-		@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, ) 400i,  600,  600i,  700;
+		<style type="text/css">@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, ) 400i,  600,  600i,  700;
 		a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
 		margin: 0;
 		padding: 0;
@@ -77,7 +76,7 @@ module.exports = (arr) => {
 	}
 	body {
 		height: 940px;
-		width: 800px;
+		width: 750px;
 		margin: auto;
 		font-family: 'Open Sans', sans-serif;
 		font-size: 13px;
@@ -220,8 +219,7 @@ module.exports = (arr) => {
 		font-size: 65%;
 		line-height: 140%;
 		text-align: center;
-	}
-		</style>
+	}</style>
 	</head>
 	<body>
 		<div id="container" style="margin-top: 10px;">
@@ -397,7 +395,7 @@ module.exports = (arr) => {
 					</tr>
 				</table>
 			</div>
-			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 380px; line-height: 1.5;">
+			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 400px; line-height: 1.5;">
 				<div style="margin-bottom: 20px;">
 					<div>E. & O.E</div>
 					<div>Amount Chargeable(in words)</div>
@@ -405,7 +403,7 @@ module.exports = (arr) => {
 					<div>Remarks:</div>
 				</div>
 				<div>
-					<div style="float: left; width: 66%;">
+					<div style="float: left; width: 50%;">
 						<div id="items">
 							<div style="text-align: center; font-weight: 700;">GST TAX SUMMARY</div>
 							<table style="text-align: center;">
@@ -465,7 +463,7 @@ module.exports = (arr) => {
 							</div>
 						</div>
 					</div>
-					<div style="float: right; width: 32%; font-size: 11px;">
+					<div style="float: right; width: 45%; font-size: 11px;">
 						<u>Company's Bank Details: </u>
 						<div style="margin-bottom: 65px;">
 							<div style="float: left;">
@@ -481,9 +479,9 @@ module.exports = (arr) => {
 								<div>PUNB0189020</div>
 							</div>
 						</div>
-						<div style="border: 1px solid grey; height: 175px; border-bottom: none; border-right: none; padding: 6px;">
+						<div style="border: 1px solid grey; height: 195px; border-bottom: none; border-right: none; padding: 6px;">
 							<div style="text-align: center;">for SATVIK SOLUTIONS</div><br/>
-							<div style="text-align: center; margin-top: 130px;">Authorised Signatory</div>
+							<div style="text-align: center; margin-top: 150px;">Authorised Signatory</div>
 						</div>
 					</div>
 				</div>
