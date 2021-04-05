@@ -1,6 +1,7 @@
-module.exports = (arr) => {
+module.exports = (pdfObj) => {
+	console.log(pdfObj);
 	// const today = new Date();
-
+	const { orderData, challanNo, date, customer, invoiceNo, challanDate, modeOfPayment, orderNumber, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords } = pdfObj;
 	// var subTotal0 = arr[0] === '' ? 0 :parseFloat(parseFloat(parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout)).toFixed(2));
 	// var gstAmt0 = arr[0] === '' ? 0 :parseFloat((parseFloat((arr[0].gst)/100)*subTotal0).toFixed(2));
 	// var subTotal1 = arr[1] === '' ? 0 :parseFloat(parseFloat(parseFloat(arr[1].sellingRate)* parseFloat(arr[1].checkout)).toFixed(2));
@@ -13,31 +14,35 @@ module.exports = (arr) => {
 	// var subTotal = parseFloat(subTotal0+subTotal1+subTotal2+subTotal3).toFixed(2)
 	// var total = parseFloat(totalGst) + parseFloat(subTotal)
 	// var grandTotal = parseFloat(total).toFixed(2);
-	// const demo = () => {
-	// 	let hello = '';
-	// 	for(let i = 0; i < 3; i++) {
-	// 		hello += `<tr>
-	// 		<td>1</td>
-	// 		<td>${arr[0].itemCode}</td>
-	// 		<td style="text-align: left">
-	// 			<strong>${arr[0].item}</strong><br>
-	// 			<div style="font-size: 8px">
-	// 			Batch: ${arr[0].lotNo}<br>
-	// 			Expiry: ${arr[0].exp=== null?'':arr[0].exp.split('T')[0].split('-')[2] + '-' + arr[0].exp.split('T')[0].split('-')[1] + '-' + arr[0].exp.split('T')[0].split('-')[0]}
-	// 			</div>
-	// 		</td>
-	// 		<td>${arr[0].hsn}</td>
-	// 		<td>${arr[0].checkout}</td>
-	// 		<td>${arr[0].uom}</td>
-	// 		<td>${parseFloat(arr[0].sellingRate)}</td>
-	// 		<td>${subTotal0}</td>
-	// 		<td>${arr[0].gst}</td>
-	// 		<td>${gstAmt0}</td>
-	// 		<td>${(parseFloat(arr[0].gst)/100)*(parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout))+ parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout)}</td>
-	// 	</tr>`
-	// 	}
-	// 	return hello;
-	// }
+	const rowData = () => {
+		let row = '';
+		orderData.forEach((item, index) => {
+			let rate = parseFloat(item.sellingRate.toFixed(2));
+			let quantity = parseFloat(item.checkout);
+			let total = rate * quantity;
+			let totalGst = total * (item.gst / 100);
+			row += `<tr>
+			<td>${++index}</td>
+			<td>${item.itemCode}</td>
+			<td style="text-align: left">
+				<strong>${item.item}</strong><br>
+				<div style="font-size: 8px">
+				Batch: ${item.lotNo}<br>
+				Expiry: ${item.exp}
+				</div>
+			</td>
+			<td>${item.hsn}</td>
+			<td>${quantity}</td>
+			<td>${item.uom}</td>
+			<td>${rate}</td>
+			<td>${total}</td>
+			<td>${item.gst}%</td>
+			<td>${totalGst}</td>
+			<td>${total + totalGst}</td>
+		</tr>`
+		});
+		return row;
+	}
  
  return `
  <!DOCTYPE html>
@@ -45,169 +50,7 @@ module.exports = (arr) => {
 	<head>
 		<meta charset="UTF-8">
 		<title>Invoice</title>
-		<style type="text/css">@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, ) 400i,  600,  600i,  700;
-		a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
-		margin: 0;
-		padding: 0;
-		border: 0;
-		font-size: 100%;
-		font: inherit;
-		vertical-align: baseline;
-	}
-	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-		display: block;
-	}
-	body {
-		line-height: 1;
-	}
-	ol, ul {
-		list-style: none;
-	}
-	blockquote, q {
-		quotes: none;
-	}
-	blockquote:after, blockquote:before, q:after, q:before {
-		content: '';
-		content: none;
-	}
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-	}
-	body {
-		height: 940px;
-		width: 650px;
-		margin: auto;
-		font-family: 'Open Sans', sans-serif;
-		font-size: 11px;
-	}
-	strong {
-		font-weight: 700;
-	}
-	#container {
-		position: relative;
-		padding: .5%
-	}
-	#header {
-		height: 120px;
-	}
-	#header>#reference {
-		text-align: right;
-		border: solid grey 1px;
-		border-left: none;
-		width: 49.5%;
-		height: 120px;
-		float: right;
-	}
-	#header>#logo {
-		width: 50%;
-		height: 120px;
-		border: solid grey 1px;
-		float: left;
-	}
-	.brand-box {
-		padding: 10px;
-	}
-	.details {
-		height: 45.68px;
-		border: solid grey 1px;
-		border-left: none;
-		border-right: none;
-		border-top: none;
-	}
-	.details-bottom {
-		height: 30px;
-		border-bottom: solid grey 1px;
-	}
-	.sub-details {
-		float: left;
-		width: 50%;
-		height:46.5px;
-		border-right: solid grey 1px;
-	}
-	.sub-details-reference {
-		float: left;
-		width: 50%;
-		height:30px;
-		border-right: solid grey 1px;
-	}
-	.sub-details-two {
-		float: right;
-		width: 49.5%;
-	}
-	.float-left {
-		float: left;
-	}
-	#items>p {
-		font-weight: 700;
-		text-align: right;
-		margin-bottom: 1%;
-		font-size: 65%}
-	#items>table {
-		width: 100%;
-		font-size: 85%;
-		border: solid grey 1px;
-	}
-	#items>table th:first-child {
-		text-align: left;
-	}
-	#items>table th {
-		font-weight: 400;
-		padding: 1px 4px;
-	}
-	#items>table td {
-		padding: 1px 4px;
-	}
-	#items>table th:nth-child(3) {
-		width: 150px;
-	}
-	
-	#items>table tr td:not(:first-child) {
-		text-align: center;
-		padding-right: 1%}
-	#items table td {
-		border-right: solid grey 1px;
-	}
-	#items table tr td {
-		padding-top: 3px;
-		padding-bottom: 8px;
-		height: 10px;
-	}
-	#items table tr:nth-child(1) {
-		border: solid grey 1px;
-	}
-	#items table tr th {
-		border-right: solid grey 1px;
-		padding: 10px;
-	}
-	#items table tr:nth-child(2)>td {
-		padding-top: 8px;
-	}
-	.sub-total-row {
-		border: none !important;
-	}
-    #gst-items>p {
-		font-weight: 700;
-		text-align: right;
-		margin-bottom: 1%;
-		font-size: 65%}
-	#gst-items>table {
-		width: 100%;
-		font-size: 85%;
-		border: solid grey 1px;
-	}
-	#gst-items table td {
-		border-right: solid grey 1px;
-	}
-	#gst-items table tr td {
-		padding-top: 1px;
-		padding-bottom: 2px;
-		height: 5px;
-	}
-	#gst-items table tr:nth-child(1) {
-		border: solid grey 1px;
-	}
-	</style>
+		<style type="text/css">@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,) 400i, 600, 600i, 700;a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{height:940px;width:650px;margin:auto;font-family:'Open Sans',sans-serif;font-size:11px}strong{font-weight:700}#container{position:relative;padding:.5%}#header{height:120px}#header>#reference{text-align:right;border:solid grey 1px;border-left:none;width:49.5%;height:120px;float:right}#header>#logo{width:50%;height:120px;border:solid grey 1px;float:left}.brand-box{padding:10px}.details{height:45.68px;border:solid grey 1px;border-left:none;border-right:none;border-top:none}.details-bottom{height:30px;border-bottom:solid grey 1px}.sub-details{float:left;width:50%;height:46.5px;border-right:solid grey 1px}.sub-details-reference{float:left;width:50%;height:30px;border-right:solid grey 1px}.sub-details-two{float:right;width:49.5%}.float-left{float:left}#items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#items>table{width:100%;font-size:85%;border:solid grey 1px}#items>table th:first-child{text-align:left}#items>table th{font-weight:400;padding:1px 4px}#items>table td{padding:1px 4px}#items>table th:nth-child(3){width:150px}#items>table tr td:not(:first-child){text-align:center;padding-right:1%}#items table td{border-right:solid grey 1px}#items table tr td{padding-top:3px;padding-bottom:8px;height:10px}#items table tr:nth-child(1){border:solid grey 1px}#items table tr th{border-right:solid grey 1px;padding:10px}#items table tr:nth-child(2)>td{padding-top:8px}.sub-total-row{border:none!important}#gst-items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#gst-items>table{width:100%;font-size:85%;border:solid grey 1px}#gst-items table td{border-right:solid grey 1px}#gst-items table tr td{padding-top:1px;padding-bottom:2px;height:5px}#gst-items table tr:nth-child(1){border:solid grey 1px}</style>
 	</head>
 	<body>
 		<div id="container" style="margin-top: 10px;">
@@ -230,20 +73,20 @@ module.exports = (arr) => {
 						<div class="details">
 							<div class="sub-details">
 								<div class="float-left">Invoice No.</div><br/>
-								<div class="float-left"><strong>SS/21-22/003</strong></div>
+								<div class="float-left"><strong>${invoiceNo}</strong></div>
 							</div>
 							<div class="sub-details-two" style="border-right: none;">
 								<div class="float-left">Date:</div><br/>
-								<div class="float-left"><strong>02-04-21</strong></div>
+								<div class="float-left"><strong>${new Date(date).toLocaleDateString()}</strong></div>
 							</div>
 						</div>
 						<div class="details">
-							<div class="sub-details"><div class="float-left">Challan No.:</div><br/><div class="float-left">343</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">02-11-21</div></div>
+							<div class="sub-details"><div class="float-left">Challan No.:</div><br/><div class="float-left">${challanNo}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">${challanDate}</div></div>
 						</div>
 						<div class="details" style="border-bottom: none;">
-							<div class="sub-details"><div class="float-left">Book No.</div><br/><div class="float-left">2</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Mode/Terms of Payment</div><br/><div class="float-left">15 Days</div></div>
+							<div class="sub-details"><div class="float-left">Book No.</div><br/><div class="float-left"></div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Mode/Terms of Payment</div><br/><div class="float-left">${modeOfPayment}</div></div>
 						</div>
 					</div>
 				</div>
@@ -252,28 +95,27 @@ module.exports = (arr) => {
 						<div class="brand-box" style="padding-top: 5px;">
 							<p style="font-style: italic; margin-bottom: 10px;">Consignee:</p>
 							<div style="font-weight: 600;">
-								M/s LUCKNOW KIDNEY CARE PVT. LTD.<br>
-								40/414, VIVEKANANDPURAM,<br>
-								RING ROAD, KALYANPUR(WEST),<br>
-								LUCKNOW- 226 022<br>
-								GSTIN : 058CBPN1106J1Z2
+								${customer.name}<br>
+								${customer.address},<br>
+								${customer.city} - ${customer.zip}<br>
+								GSTIN : ${customer.gst}
 							</div>
 						</div>
 					</div>
 					<div id="reference" style="border-top: none; border-bottom: none">
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Order No.:</div><br/><div class="float-left">Service Report</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div><br/><div class="float-left">02-11-21</div></div>
+							<div class="sub-details-reference"><div class="float-left">Order No.:</div><br/><div class="float-left">${orderNumber}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div><br/><div class="float-left"></div></div>
 						</div>
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div><br/><div class="float-left">3564</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div><br/><div class="float-left">02-11-21</div></div>
+							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div><br/><div class="float-left"></div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div><br/><div class="float-left"></div></div>
 						</div>
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Dispatch Through:</div><br/><div class="float-left">Surface Transport</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Destination:</div><br/><div class="float-left">Dehradun</div></div>
+							<div class="sub-details-reference"><div class="float-left">Dispatch Through:</div><br/><div class="float-left">${dispatchThrough}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Destination:</div><br/><div class="float-left">${destination}</div></div>
 						</div>
-						<div class="details-bottom" style="border-bottom: none;"><div class="float-left">Terms of Delivery:</div><br/><div class="float-left">Agaist Delivery</div></div>
+						<div class="details-bottom" style="border-bottom: none;"><div class="float-left">Terms of Delivery:</div><br/><div class="float-left">${termsOfDelivery}</div></div>
 					</div>
 				</div>
 			</div>
@@ -292,82 +134,7 @@ module.exports = (arr) => {
 						<th>GST VALUE</th>
 						<th>Amount INR</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>CM003</td>
-						<td style="text-align: left">
-							<strong>PEROXY PLUS RP</strong><br>
-							<div style="font-size: 8px">
-							Batch: B5873<br>
-							Expiry: 24-Feb-2020
-							</div>
-						</td>
-						<td>3042</td>
-						<td>4</td>
-						<td>No.</td>
-						<td>3500.00</td>
-						<td>14000.00</td>
-						<td>18%</td>
-						<td>2500</td>
-						<td>16520.00</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>CM003</td>
-						<td style="text-align: left">
-							<strong>PEROXY PLUS RP</strong><br>
-							<div style="font-size: 8px">
-							Batch: B5873<br>
-							Expiry: 24-Feb-2020
-							</div>
-						</td>
-						<td>3042</td>
-						<td>4</td>
-						<td>No.</td>
-						<td>3500.00</td>
-						<td>14000.00</td>
-						<td>18%</td>
-						<td>2500</td>
-						<td>16520.00</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>CM003</td>
-						<td style="text-align: left">
-							<strong>PEROXY PLUS RP</strong><br>
-							<div style="font-size: 8px">
-							Batch: B5873<br>
-							Expiry: 24-Feb-2020
-							</div>
-						</td>
-						<td>3042</td>
-						<td>4</td>
-						<td>No.</td>
-						<td>3500.00</td>
-						<td>14000.00</td>
-						<td>18%</td>
-						<td>2500</td>
-						<td>16520.00</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>CM003</td>
-						<td style="text-align: left">
-							<strong>PEROXY PLUS RP</strong><br>
-							<div style="font-size: 8px">
-							Batch: B5873<br>
-							Expiry: 24-Feb-2020
-							</div>
-						</td>
-						<td>3042</td>
-						<td>4</td>
-						<td>No.</td>
-						<td>3500.00</td>
-						<td>140700.00</td>
-						<td>18%</td>
-						<td>2500</td>
-						<td>16520.00</td>
-					</tr>
+					${rowData()}
 					<tr style="border-top: 1px solid grey; font-weight: 600;">
 						<td class="sub-total-row"></td>
 						<td class="sub-total-row"></td>
