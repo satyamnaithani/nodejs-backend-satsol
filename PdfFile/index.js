@@ -45,8 +45,7 @@ module.exports = (arr) => {
 	<head>
 		<meta charset="UTF-8">
 		<title>Invoice</title>
-		<style type="text/css">
-		@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, ) 400i,  600,  600i,  700;
+		<style type="text/css">@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, ) 400i,  600,  600i,  700;
 		a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
 		margin: 0;
 		padding: 0;
@@ -80,7 +79,7 @@ module.exports = (arr) => {
 		width: 650px;
 		margin: auto;
 		font-family: 'Open Sans', sans-serif;
-		font-size: 13px;
+		font-size: 11px;
 	}
 	strong {
 		font-weight: 700;
@@ -90,19 +89,19 @@ module.exports = (arr) => {
 		padding: .5%
 	}
 	#header {
-		height: 140px;
+		height: 120px;
 	}
 	#header>#reference {
 		text-align: right;
 		border: solid grey 1px;
 		border-left: none;
 		width: 49.5%;
-		height: 140px;
+		height: 120px;
 		float: right;
 	}
 	#header>#logo {
 		width: 50%;
-		height: 140px;
+		height: 120px;
 		border: solid grey 1px;
 		float: left;
 	}
@@ -110,14 +109,14 @@ module.exports = (arr) => {
 		padding: 10px;
 	}
 	.details {
-		height: 46.68px;
+		height: 45.68px;
 		border: solid grey 1px;
 		border-left: none;
 		border-right: none;
 		border-top: none;
 	}
 	.details-bottom {
-		height: 35px;
+		height: 30px;
 		border-bottom: solid grey 1px;
 	}
 	.sub-details {
@@ -129,7 +128,7 @@ module.exports = (arr) => {
 	.sub-details-reference {
 		float: left;
 		width: 50%;
-		height:35px;
+		height:30px;
 		border-right: solid grey 1px;
 	}
 	.sub-details-two {
@@ -208,16 +207,16 @@ module.exports = (arr) => {
 	#gst-items table tr:nth-child(1) {
 		border: solid grey 1px;
 	}
-		</style>
+	</style>
 	</head>
 	<body>
 		<div id="container" style="margin-top: 10px;">
-			<h3 style="text-align: center; font-weight: 700; font-size: 18px; margin-bottom: 5px;">GST INVOICE</h3>
+			<h3 style="text-align: center; font-weight: 700; font-size: 15px; margin-bottom: 5px;">GST INVOICE</h3>
 			<div>
 				<div id="header">
 					<div id="logo">
 						<div class="brand-box">
-							<strong style="font-size: 20px;">SATVIK SOLUTIONS</strong></br><br/>
+							<strong style="font-size: 15px;">SATVIK SOLUTIONS</strong></br><br/>
 							<div>
 								Godarwaripuram, Lower Nathanpur,<br>
 								Dehradun -248001<br>
@@ -231,11 +230,11 @@ module.exports = (arr) => {
 						<div class="details">
 							<div class="sub-details">
 								<div class="float-left">Invoice No.</div><br/>
-								<div class="float-left">SS/21-22/003</div>
+								<div class="float-left"><strong>SS/21-22/003</strong></div>
 							</div>
 							<div class="sub-details-two" style="border-right: none;">
 								<div class="float-left">Date:</div><br/>
-								<div class="float-left">02-04-21</div>
+								<div class="float-left"><strong>02-04-21</strong></div>
 							</div>
 						</div>
 						<div class="details">
@@ -364,44 +363,6 @@ module.exports = (arr) => {
 						<td>4</td>
 						<td>No.</td>
 						<td>3500.00</td>
-						<td>14000.00</td>
-						<td>18%</td>
-						<td>2500</td>
-						<td>16520.00</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>CM003</td>
-						<td style="text-align: left">
-							<strong>PEROXY PLUS RP</strong><br>
-							<div style="font-size: 8px">
-							Batch: B5873<br>
-							Expiry: 24-Feb-2020
-							</div>
-						</td>
-						<td>3042</td>
-						<td>4</td>
-						<td>No.</td>
-						<td>3500.00</td>
-						<td>14000.00</td>
-						<td>18%</td>
-						<td>2500</td>
-						<td>16520.00</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>CM003</td>
-						<td style="text-align: left">
-							<strong>PEROXY PLUS RP</strong><br>
-							<div style="font-size: 8px">
-							Batch: B5873<br>
-							Expiry: 24-Feb-2020
-							</div>
-						</td>
-						<td>3042</td>
-						<td>4</td>
-						<td>No.</td>
-						<td>3500.00</td>
 						<td>140700.00</td>
 						<td>18%</td>
 						<td>2500</td>
@@ -422,7 +383,7 @@ module.exports = (arr) => {
 					</tr>
 				</table>
 			</div>
-			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 320px; line-height: 1.5;">
+			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 285px; line-height: 1.5;">
 				<div style="margin-bottom: 20px;">
 					<div>E. & O.E</div>
 					<div>Amount Chargeable(in words)</div>
@@ -494,9 +455,9 @@ module.exports = (arr) => {
 								<div>PUNB0189020</div>
 							</div>
 						</div>
-						<div style="border: 1px solid grey; height: 115px; border-bottom: none; border-right: none; padding: 6px;">
+						<div style="border: 1px solid grey; height: 97px; border-bottom: none; border-right: none; padding: 6px;">
 							<div style="text-align: center;">for SATVIK SOLUTIONS</div><br/>
-							<div style="text-align: center; margin-top: 70px;">Authorised Signatory</div>
+							<div style="text-align: center; margin-top: 50px;">Authorised Signatory</div>
 						</div>
 					</div>
 				</div>
