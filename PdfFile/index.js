@@ -45,7 +45,8 @@ module.exports = (arr) => {
 	<head>
 		<meta charset="UTF-8">
 		<title>Invoice</title>
-		<style type="text/css">@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, ) 400i,  600,  600i,  700;
+		<style type="text/css">
+		@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, ) 400i,  600,  600i,  700;
 		a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
 		margin: 0;
 		padding: 0;
@@ -186,40 +187,28 @@ module.exports = (arr) => {
 	.sub-total-row {
 		border: none !important;
 	}
-	#summary {
-		height: 170px;
-		margin-top: 30px;
+    #gst-items>p {
+		font-weight: 700;
+		text-align: right;
+		margin-bottom: 1%;
+		font-size: 65%}
+	#gst-items>table {
+		width: 100%;
+		font-size: 85%;
+		border: solid grey 1px;
 	}
-	#summary #note {
-		float: left;
-		width: 350px;
+	#gst-items table td {
+		border-right: solid grey 1px;
 	}
-	#summary #note h4 {
-		font-size: 10px;
-		font-weight: 600;
-		font-style: italic;
-		margin-bottom: 4px;
+	#gst-items table tr td {
+		padding-top: 1px;
+		padding-bottom: 2px;
+		height: 5px;
 	}
-	#summary #note p {
-		font-size: 10px;
-		font-style: italic;
+	#gst-items table tr:nth-child(1) {
+		border: solid grey 1px;
 	}
-	
-	
-	#footer {
-		margin: auto;
-		position: absolute;
-		left: 4%;
-		bottom: 4%;
-		right: 4%;
-		border-top: solid grey 1px;
-	}
-	#footer p {
-		margin-top: 1%;
-		font-size: 65%;
-		line-height: 140%;
-		text-align: center;
-	}</style>
+		</style>
 	</head>
 	<body>
 		<div id="container" style="margin-top: 10px;">
@@ -250,8 +239,8 @@ module.exports = (arr) => {
 							</div>
 						</div>
 						<div class="details">
-							<div class="sub-details"><div class="float-left">Challan No.:</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div></div>
+							<div class="sub-details"><div class="float-left">Challan No.:</div><br/><div class="float-left">343</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">02-11-21</div></div>
 						</div>
 						<div class="details" style="border-bottom: none;">
 							<div class="sub-details"><div class="float-left">Book No.</div><br/><div class="float-left">2</div></div>
@@ -274,18 +263,18 @@ module.exports = (arr) => {
 					</div>
 					<div id="reference" style="border-top: none; border-bottom: none">
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Order No.:</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div></div>
+							<div class="sub-details-reference"><div class="float-left">Order No.:</div><br/><div class="float-left">Service Report</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div><br/><div class="float-left">02-11-21</div></div>
 						</div>
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div></div>
+							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div><br/><div class="float-left">3564</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div><br/><div class="float-left">02-11-21</div></div>
 						</div>
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Dispatch Through:</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Destination:</div></div>
+							<div class="sub-details-reference"><div class="float-left">Dispatch Through:</div><br/><div class="float-left">Surface Transport</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Destination:</div><br/><div class="float-left">Dehradun</div></div>
 						</div>
-						<div class="details-bottom" style="border-bottom: none;"><div class="float-left">Terms of Delivery:</div></div>
+						<div class="details-bottom" style="border-bottom: none;"><div class="float-left">Terms of Delivery:</div><br/><div class="float-left">Agaist Delivery</div></div>
 					</div>
 				</div>
 			</div>
@@ -303,6 +292,44 @@ module.exports = (arr) => {
 						<th>GST%</th>
 						<th>GST VALUE</th>
 						<th>Amount INR</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>CM003</td>
+						<td style="text-align: left">
+							<strong>PEROXY PLUS RP</strong><br>
+							<div style="font-size: 8px">
+							Batch: B5873<br>
+							Expiry: 24-Feb-2020
+							</div>
+						</td>
+						<td>3042</td>
+						<td>4</td>
+						<td>No.</td>
+						<td>3500.00</td>
+						<td>14000.00</td>
+						<td>18%</td>
+						<td>2500</td>
+						<td>16520.00</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>CM003</td>
+						<td style="text-align: left">
+							<strong>PEROXY PLUS RP</strong><br>
+							<div style="font-size: 8px">
+							Batch: B5873<br>
+							Expiry: 24-Feb-2020
+							</div>
+						</td>
+						<td>3042</td>
+						<td>4</td>
+						<td>No.</td>
+						<td>3500.00</td>
+						<td>14000.00</td>
+						<td>18%</td>
+						<td>2500</td>
+						<td>16520.00</td>
 					</tr>
 					<tr>
 						<td>1</td>
@@ -395,7 +422,7 @@ module.exports = (arr) => {
 					</tr>
 				</table>
 			</div>
-			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 400px; line-height: 1.5;">
+			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 320px; line-height: 1.5;">
 				<div style="margin-bottom: 20px;">
 					<div>E. & O.E</div>
 					<div>Amount Chargeable(in words)</div>
@@ -404,40 +431,29 @@ module.exports = (arr) => {
 				</div>
 				<div>
 					<div style="float: left; width: 50%;">
-						<div id="items">
+						<div id="gst-items">
 							<div style="text-align: center; font-weight: 700;">GST TAX SUMMARY</div>
 							<table style="text-align: center;">
 								<tr>
 								  <th>GST%</th>
-								  <th>TAXABLE</th>
 								  <th>IGST</th>
 								  <th>CGST</th>
 								  <th>SGST</th>
-								</tr>
-								<tr>
-								  <td>0%</td>
-								  <td></td>
-								  <td></td>
-								  <td></td>
-								  <td></td>
 								</tr>
 								<tr>
 									<td>5%</td>
 									<td></td>
 									<td></td>
 									<td></td>
-									<td></td>
 								  </tr>
 								<tr>
 								  <td>12%</td>
-								  <td>560.00</td>
 								  <td></td>
 								  <td>270.00</td>
 								  <td>270.00</td>
 								</tr>
 								<tr>
 									<td>18%</td>
-									<td>70.00</td>
 									<td></td>
 									<td>35.00</td>
 									<td>35.00</td>
@@ -447,12 +463,11 @@ module.exports = (arr) => {
 									<td></td>
 									<td></td>
 									<td></td>
-									<td></td>
 								  </tr>
 
 							</table>
 						</div>
-						<div style="font-size: 9px;">
+						<div style="font-size: 9px; margin-top: 10px;">
 							<u>Declaration</u>
 							<p>We declare that this invoice shows the actual price of the goods described and all particulars are true and correct.</p>
 							<div>
@@ -472,69 +487,21 @@ module.exports = (arr) => {
 								<div>Branch:</div>
 								<div>IFSC Code:</div>
 							</div>
-							<div style="float: right;">
+							<div style="float: right; margin-right: 5px;">
 								<div>Punjab National Bank</div>
 								<div>1890050002561</div>
 								<div>Dharampur, Dehradun - 248 001</div>
 								<div>PUNB0189020</div>
 							</div>
 						</div>
-						<div style="border: 1px solid grey; height: 195px; border-bottom: none; border-right: none; padding: 6px;">
+						<div style="border: 1px solid grey; height: 115px; border-bottom: none; border-right: none; padding: 6px;">
 							<div style="text-align: center;">for SATVIK SOLUTIONS</div><br/>
-							<div style="text-align: center; margin-top: 150px;">Authorised Signatory</div>
+							<div style="text-align: center; margin-top: 70px;">Authorised Signatory</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div style="text-align: center; margin-top: 5px;">SUBJECT UNDER DEHRADUN JURISDICTION</div>
-			<!-- <div id="summary">
-				<div id="note">
-					<br/>
-					<h4>Amount Chargeable(in words) :</h4>
-					<p>INR</p>
-				</div>
-				<div id="note">
-					<br/>
-					<h4>Company's Bank Details:</h4>
-					<p>Bank Name     :Indian Bank  </p>
-					<p>Account Number:6759192854</p>
-					<p>Branch        : Indira Nagar,Lucknow -226016  </p>
-					<p>IFSC Code     : IDIB0001012  </p>
-				</div>
-				<div style= 'position:absolute;
-				bottom:90px;
-				right:60px;
-				text-align:center'>
-				<p>For SATVIK SOLUTIONS</p>
-					
-					<br/>
-					<br/>
-					<br/>
-				<p>Authorised Signatory</p>
-				</div>
-				<div id="note">
-				<br/>
-					<h4>Declaration :</h4>
-					<p>We declare that this invoice shows the actual price of the goods described and all particulars are true and correct.</p>
-					<p>1. Any claim by the purchaser which is based on a pre dispatcch defects shall be notified within 7 days from the date of the sale.</p>
-					<p>2. Interest @24% will be charged in delay payments.</p>
-				</div>
-			</div>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<div id="footer">
-				<p>Subject to Dehradun Jurisdiction</p>
-			</div> -->
+			<div style="text-align: center; margin-top: 5px;">SUBJECT IN DEHRADUN JURISDICTION</div>
 		</div>
 	</body>
 </html>
