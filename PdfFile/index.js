@@ -14,16 +14,16 @@ module.exports = (pdfObj) => {
 			let total = rate * quantity;
 			totalRate += total;
 			let totalGst = total * (item.gst / 100);
-			if(item.gst == 5) {
+			if(item.gst === 5) {
 				gstFive += total * (item.gst / 100);
 			}
-			if(item.gst == 12) {
+			if(item.gst === 12) {
 				gstTwelve += total * (item.gst / 100);
 			}
-			if(item.gst == 18) {
+			if(item.gst === 18) {
 				gstEighteen += total * (item.gst / 100);
 			}
-			if(item.gst == 28) {
+			if(item.gst === 28) {
 				gstTwentyEight += total * (item.gst / 100);
 			}
 			row += `<tr>
@@ -39,11 +39,11 @@ module.exports = (pdfObj) => {
 			<td>${item.hsn}</td>
 			<td>${quantity}</td>
 			<td>${item.uom}</td>
-			<td>${rate}</td>
-			<td>${total}</td>
+			<td>${rate.toFixed(2)}</td>
+			<td>${total.toFixed(2)}</td>
 			<td>${item.gst}%</td>
-			<td>${totalGst}</td>
-			<td>${total + totalGst}</td>
+			<td>${totalGst.toFixed(2)}</td>
+			<td>${(total + totalGst).toFixed(2)}</td>
 		</tr>`
 		});
 		return row;
@@ -55,7 +55,7 @@ module.exports = (pdfObj) => {
 	<head>
 		<meta charset="UTF-8">
 		<title>Invoice</title>
-		<style type="text/css">@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,) 400i, 600, 600i, 700;a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{height:940px;width:650px;margin:auto;font-family:'Open Sans',sans-serif;font-size:11px}strong{font-weight:700}#container{position:relative;padding:.5%}#header{height:120px}#header>#reference{text-align:right;border:solid grey 1px;border-left:none;width:49.5%;height:120px;float:right}#header>#logo{width:50%;height:120px;border:solid grey 1px;float:left}.brand-box{padding:10px}.details{height:45.68px;border:solid grey 1px;border-left:none;border-right:none;border-top:none}.details-bottom{height:30px;border-bottom:solid grey 1px}.sub-details{float:left;width:50%;height:46.5px;border-right:solid grey 1px}.sub-details-reference{float:left;width:50%;height:30px;border-right:solid grey 1px}.sub-details-two{float:right;width:49.5%}.float-left{float:left}#items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#items>table{width:100%;font-size:85%;border:solid grey 1px}#items>table th:first-child{text-align:left}#items>table th{font-weight:400;padding:1px 4px}#items>table td{padding:1px 4px}#items>table th:nth-child(3){width:150px}#items>table tr td:not(:first-child){text-align:center;padding-right:1%}#items table td{border-right:solid grey 1px}#items table tr td{padding-top:3px;padding-bottom:8px;height:10px}#items table tr:nth-child(1){border:solid grey 1px}#items table tr th{border-right:solid grey 1px;padding:10px}#items table tr:nth-child(2)>td{padding-top:8px}.sub-total-row{border:none!important}#gst-items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#gst-items>table{width:100%;font-size:85%;border:solid grey 1px}#gst-items table td{border-right:solid grey 1px}#gst-items table tr td{padding-top:1px;padding-bottom:2px;height:5px}#gst-items table tr:nth-child(1){border:solid grey 1px}</style>
+		<style type="text/css">@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,) 400i, 600, 600i, 700;a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{height:940px;width:650px;margin:auto;font-family:'Open Sans',sans-serif;font-size:11px}strong{font-weight:700}#container{position:relative;padding:.5%}#header{height:120px}#header>#reference{text-align:right;border:solid grey 1px;border-left:none;width:49.5%;height:120px;float:right}#header>#logo{width:50%;height:120px;border:solid grey 1px;float:left}.brand-box{padding:10px}.details{height:45.68px;border:solid grey 1px;border-left:none;border-right:none;border-top:none}.details-bottom{height:30px;border-bottom:solid grey 1px}.sub-details{float:left;width:50%;height:46.5px;border-right:solid grey 1px}.sub-details-reference{float:left;width:50%;height:30px;border-right:solid grey 1px}.sub-details-two{float:right;width:49.5%}.float-left{float:left}#items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#items>table{width:100%;font-size:85%;border:solid grey 1px}#items>table th:first-child{text-align:left}#items>table th{font-weight:400;padding:1px 4px}#items>table td{padding:1px 4px}#items>table th:nth-child(3){width:150px}#items>table tr td:not(:first-child){text-align:center;padding-right:1%}#items table td{border-right:solid grey 1px}#items table tr td{padding-top:3px;padding-bottom:8px;height:10px}#items table tr:nth-child(1){border:solid grey 1px}#items table tr th{border-right:solid grey 1px;padding:10px}#items table tr:nth-child(2)>td{padding-top:8px}.sub-total-row{border:none!important}#gst-items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#gst-items>table{width:100%;font-size:85%;border:solid grey 1px}#gst-items table td{border-right:solid grey 1px}#gst-items table tr td{padding-top:1px;padding-bottom:2px;height:5px}#gst-items table tr:nth-child(1){border:solid grey 1px}#gst-items table tr th{border-right:solid grey 1px}</style>
 	</head>
 	<body>
 		<div id="container" style="margin-top: 10px;">
@@ -87,7 +87,7 @@ module.exports = (pdfObj) => {
 						</div>
 						<div class="details">
 							<div class="sub-details"><div class="float-left">Challan No.:</div><br/><div class="float-left">${challanNo}</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">${challanDate}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">${challanDate === null ? '' : challanDate}</div></div>
 						</div>
 						<div class="details" style="border-bottom: none;">
 							<div class="sub-details"><div class="float-left">Book No.</div><br/><div class="float-left"></div></div>
@@ -148,10 +148,10 @@ module.exports = (pdfObj) => {
 						<td class="sub-total-row"></td>
 						<td class="sub-total-row"></td>
 						<td style="text-align: right; padding: 5px 2px;">TOTAL</td>
-						<td>${totalRate}</td>
+						<td>${totalRate.toFixed(2)}</td>
 						<td></td>
-						<td>${gstFive + gstTwelve + gstEighteen + gstTwentyEight}</td>
-						<td>${gstFive + gstTwelve + gstEighteen + gstTwentyEight + totalRate}</td>
+						<td>${(gstFive + gstTwelve + gstEighteen + gstTwentyEight).toFixed(2)}</td>
+						<td>${(gstFive + gstTwelve + gstEighteen + gstTwentyEight + totalRate).toFixed(2)}</td>
 					</tr>
 				</table>
 			</div>
@@ -175,27 +175,27 @@ module.exports = (pdfObj) => {
 								</tr>
 								<tr>
 									<td>5%</td>
-									<td>${interState ? gstFive : 0.00}</td>
-									<td>${!interState ? gstFive/2 : 0.00}</td>
-									<td>${!interState ? gstFive/2 : 0.00}</td>
+									<td>${interState ? gstFive.toFixed(2) : '0.00'}</td>
+									<td>${!interState ? (gstFive/2).toFixed(2) : '0.00'}</td>
+									<td>${!interState ? (gstFive/2).toFixed(2) : '0.00'}</td>
 								  </tr>
 								<tr>
 								  <td>12%</td>
-								  <td>${interState ? gstTwelve : 0.00}</td>
-								  <td>${!interState ? gstTwelve/2 : 0.00}</td>
-								  <td>${!interState ? gstTwelve/2 : 0.00}</td>
+								  <td>${interState ? gstTwelve.toFixed(2) : '0.00'}</td>
+								  <td>${!interState ? (gstTwelve/2).toFixed(2) : '0.00'}</td>
+								  <td>${!interState ? (gstTwelve/2).toFixed(2) : '0.00'}</td>
 								</tr>
 								<tr>
 									<td>18%</td>
-									<td>${interState ? gstEighteen : 0.00}</td>
-									<td>${!interState ? gstEighteen/2 : 0.00}</td>
-									<td>${!interState ? gstEighteen/2 : 0.00}</td>
+									<td>${interState ? gstEighteen.toFixed(2) : '0.00'}</td>
+									<td>${!interState ? (gstEighteen/2).toFixed(2) : '0.00'}</td>
+									<td>${!interState ? (gstEighteen/2).toFixed(2) : '0.00'}</td>
 								  </tr>
 								  <tr>
 									<td>28%</td>
-									<td>${interState ? gstTwentyEight : 0.00}</td>
-									<td>${!interState ? gstTwentyEight/2 : 0.00}</td>
-									<td>${!interState ? gstTwentyEight/2 : 0.00}</td>
+									<td>${interState ? gstTwentyEight.toFixed(2) : '0.00'}</td>
+									<td>${!interState ? (gstTwentyEight/2).toFixed(2) : '0.00'}</td>
+									<td>${!interState ? (gstTwentyEight/2).toFixed(2) : '0.00'}</td>
 								  </tr>
 
 							</table>
