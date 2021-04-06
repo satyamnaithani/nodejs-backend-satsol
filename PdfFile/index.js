@@ -1,14 +1,31 @@
 module.exports = (pdfObj) => {
 	console.log(pdfObj);
-	// const today = new Date();
 	const { orderData, challanNo, date, customer, invoiceNo, challanDate, modeOfPayment, orderNumber, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords } = pdfObj;
+	let gstFive = 0.0;
+	let gstTwelve = 0.0;
+	let gstEighteen = 0.0;
+	let gstTwentyEight = 0.0;
+	let totalRate = 0.0;
 	const rowData = () => {
 		let row = '';
 		orderData.forEach((item, index) => {
 			let rate = parseFloat(item.sellingRate.toFixed(2));
 			let quantity = parseFloat(item.checkout);
 			let total = rate * quantity;
+			totalRate += total;
 			let totalGst = total * (item.gst / 100);
+			if(item.gst == 5) {
+				gstFive += total * (item.gst / 100);
+			}
+			if(item.gst == 12) {
+				gstTwelve += total * (item.gst / 100);
+			}
+			if(item.gst == 18) {
+				gstEighteen += total * (item.gst / 100);
+			}
+			if(item.gst == 28) {
+				gstTwentyEight += total * (item.gst / 100);
+			}
 			row += `<tr>
 			<td>${++index}</td>
 			<td>${item.itemCode}</td>
@@ -82,7 +99,7 @@ module.exports = (pdfObj) => {
 					<div id="logo" style="border-top: none; border-bottom: none;">
 						<div class="brand-box" style="padding-top: 5px;">
 							<p style="font-style: italic; margin-bottom: 10px;">Consignee:</p>
-							<div style="font-weight: 600;">
+							<div style="font-weight: 500;">
 								${customer.name}<br>
 								${customer.address},<br>
 								${customer.city} - ${customer.zip}<br>
@@ -131,10 +148,10 @@ module.exports = (pdfObj) => {
 						<td class="sub-total-row"></td>
 						<td class="sub-total-row"></td>
 						<td style="text-align: right; padding: 5px 2px;">TOTAL</td>
-						<td>345000.00</td>
+						<td>${totalRate}</td>
 						<td></td>
-						<td>234500</td>
-						<td>16520.00</td>
+						<td>${gstFive + gstTwelve + gstEighteen + gstTwentyEight}</td>
+						<td>${gstFive + gstTwelve + gstEighteen + gstTwentyEight + totalRate}</td>
 					</tr>
 				</table>
 			</div>
@@ -142,7 +159,7 @@ module.exports = (pdfObj) => {
 				<div style="margin-bottom: 20px;">
 					<div>E. & O.E</div>
 					<div>Amount Chargeable(in words)</div>
-					<strong>INR Fourteen Thousand Four Hundred Ninety Only</strong><br/><br/>
+					<strong>INR ${grandTotalInWords}</strong><br/><br/>
 					<div>Remarks:</div>
 				</div>
 				<div>
@@ -158,27 +175,27 @@ module.exports = (pdfObj) => {
 								</tr>
 								<tr>
 									<td>5%</td>
-									<td></td>
-									<td></td>
-									<td></td>
+									<td>${interState ? gstFive : 0.00}</td>
+									<td>${!interState ? gstFive/2 : 0.00}</td>
+									<td>${!interState ? gstFive/2 : 0.00}</td>
 								  </tr>
 								<tr>
 								  <td>12%</td>
-								  <td></td>
-								  <td>270.00</td>
-								  <td>270.00</td>
+								  <td>${interState ? gstTwelve : 0.00}</td>
+								  <td>${!interState ? gstTwelve/2 : 0.00}</td>
+								  <td>${!interState ? gstTwelve/2 : 0.00}</td>
 								</tr>
 								<tr>
 									<td>18%</td>
-									<td></td>
-									<td>35.00</td>
-									<td>35.00</td>
+									<td>${interState ? gstEighteen : 0.00}</td>
+									<td>${!interState ? gstEighteen/2 : 0.00}</td>
+									<td>${!interState ? gstEighteen/2 : 0.00}</td>
 								  </tr>
 								  <tr>
 									<td>28%</td>
-									<td></td>
-									<td></td>
-									<td></td>
+									<td>${interState ? gstTwentyEight : 0.00}</td>
+									<td>${!interState ? gstTwentyEight/2 : 0.00}</td>
+									<td>${!interState ? gstTwentyEight/2 : 0.00}</td>
 								  </tr>
 
 							</table>
