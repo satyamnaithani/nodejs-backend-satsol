@@ -130,7 +130,7 @@ module.exports = (pdfObj) => {
 						<th>SL</th>
 						<th>Item Code</th>
 						<th>Description of Goods</th>
-						<th>HSN</th>
+						<th>HSN/SAC</th>
 						<th>QTY</th>
 						<th>UOM</th>
 						<th>RATE INR</th>
