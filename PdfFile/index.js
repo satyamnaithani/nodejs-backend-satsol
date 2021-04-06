@@ -99,7 +99,7 @@ module.exports = (pdfObj) => {
 					<div id="logo" style="border-top: none; border-bottom: none;">
 						<div class="brand-box" style="padding-top: 5px;">
 							<p style="font-style: italic; margin-bottom: 10px;">Consignee:</p>
-							<div style="font-weight: 500;">
+							<div style="font-weight: 600;">
 								${customer.name}<br>
 								${customer.address},<br>
 								${customer.city} - ${customer.zip}<br>
