@@ -1,5 +1,5 @@
-const Expense = require('../models/expenses')
-const Sales = require('../models/sales')
+const Expense = require('../models/expenses');
+const Sales = require('../models/sales');
 const Stock = require('../models/stock');
 const mongoose = require('mongoose');
 const { ToWords } = require('to-words');
@@ -24,7 +24,7 @@ exports.sales_create_sales = async (req, res, next) => {
       totalGst = parseFloat(totalGst + data.sellingRate * (data.gst / 100) * data.checkout)
     })
     global.count;
-    await Sales.find().countDocuments().exec().then(res => { global.count = ++res });
+    await Sales.find({"date": { $gte: new Date(1617235200000) }}).countDocuments().exec().then(res => { global.count = ++res });
 
     const sales = new Sales({
       _id: new mongoose.Types.ObjectId(),
@@ -36,10 +36,10 @@ exports.sales_create_sales = async (req, res, next) => {
       grandTotal: parseFloat(totalRate + totalGst).toFixed(2),
       customerName: req.body.customer.name,
       invoiceNo: global.count < 10 ?
-        'SS/20-21/00' + global.count
+        'SSDDN/21-22/00' + global.count
         : global.count >= 10 && global.count <= 99 ?
-          'SS/20-21/0' + global.count
-          : 'SS/20-21/' + global.count,
+          'SSDDN/21-22/0' + global.count
+          : 'SSDDN/21-22/' + global.count,
       challanNo: req.body.challanNo,
       challanDate: req.body.challanDate,
       modeOfPayment: req.body.modeOfPayment,
