@@ -6,8 +6,14 @@ module.exports = (pdfObj) => {
 	let gstEighteen = 0.0;
 	let gstTwentyEight = 0.0;
 	let totalRate = 0.0;
-	const invoiceDate = new Date(date).toLocaleDateString().split('/');
-	const challanDateArray = challanDate === null ? '' : new Date(challanDate).toLocaleDateString().split('/');
+	let invoiceDate = new Date(date).toLocaleDateString().split('/');
+	parseInt(invoiceDate[0]) < 10 ? invoiceDate[0] = 0 + invoiceDate[0] : null;
+	parseInt(invoiceDate[1]) < 10 ? invoiceDate[1] = 0 + invoiceDate[1] : null;
+	let challanDateArray = challanDate === null ? '' : new Date(challanDate).toLocaleDateString().split('/');
+	if(challanDateArray != null) {
+		parseInt(challanDateArray[0]) < 10 ? challanDateArray[0] = 0 + challanDateArray[0] : null;
+		parseInt(challanDateArray[1]) < 10 ? challanDateArray[1] = 0 + challanDateArray[1] : null;
+	}
 	const rowData = () => {
 		let row = '';
 		orderData.forEach((item, index) => {
