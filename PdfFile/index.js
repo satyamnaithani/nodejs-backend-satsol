@@ -17,6 +17,12 @@ module.exports = (pdfObj) => {
 	const rowData = () => {
 		let row = '';
 		orderData.forEach((item, index) => {
+			let itemExp;
+			if(item.exp) {
+				itemExp = new Date(item.exp).toLocaleDateString().split('/');
+				parseInt(itemExp[0]) < 10 ? itemExp[0] = 0 + itemExp[0] : null;
+				parseInt(itemExp[1]) < 10 ? itemExp[1] = 0 + itemExp[1] : null;
+			}
 			let rate = parseFloat(item.sellingRate.toFixed(2));
 			let quantity = parseFloat(item.checkout);
 			let total = rate * quantity;
@@ -34,15 +40,18 @@ module.exports = (pdfObj) => {
 			if(item.gst === 28) {
 				gstTwentyEight += total * (item.gst / 100);
 			}
+			const lotExp = (lotNo, itemExp) => {
+				return `<div style="font-size: 8px">
+				${'Batch:' + lotNo}<br>
+				${'Expiry:' + itemExp[1] + '/' + itemExp[0] + '/' + itemExp[2]}
+			   </div>`;
+			}
 			row += `<tr>
 			<td>${++index}</td>
 			<td>${item.itemCode}</td>
 			<td style="text-align: left">
 				<strong>${item.item}</strong><br>
-				<div style="font-size: 8px">
-				Batch: ${item.lotNo}<br>
-				Expiry: ${new Date(item.exp).toLocaleDateString()}
-				</div>
+				${item.lotNo === '0' ? '' : lotExp(item.lotNo, itemExp)}
 			</td>
 			<td>${item.hsn}</td>
 			<td>${quantity}</td>
