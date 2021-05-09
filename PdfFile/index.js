@@ -6,6 +6,8 @@ module.exports = (pdfObj) => {
 	let gstEighteen = 0.0;
 	let gstTwentyEight = 0.0;
 	let totalRate = 0.0;
+	const invoiceDate = new Date(date).toLocaleDateString().split('/');
+	const challanDateArray = challanDate === null ? '' : new Date(challanDate).toLocaleDateString().split('/');
 	const rowData = () => {
 		let row = '';
 		orderData.forEach((item, index) => {
@@ -82,12 +84,12 @@ module.exports = (pdfObj) => {
 							</div>
 							<div class="sub-details-two" style="border-right: none;">
 								<div class="float-left">Date:</div><br/>
-								<div class="float-left"><strong>${new Date(date).toLocaleDateString()}</strong></div>
+								<div class="float-left"><strong>${invoiceDate[1] + '/' + invoiceDate[0] + '/' + invoiceDate[2]}</strong></div>
 							</div>
 						</div>
 						<div class="details">
 							<div class="sub-details"><div class="float-left">Challan No.:</div><br/><div class="float-left">${challanNo}</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">${challanDate === null ? '' : new Date(challanDate).toLocaleDateString()}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">${challanDate === null ? '' : challanDateArray[1] + '/' + challanDateArray[0] + '/' + challanDateArray[2]}</div></div>
 						</div>
 						<div class="details" style="border-bottom: none;">
 							<div class="sub-details"><div class="float-left">Book No.</div><br/><div class="float-left"></div></div>
