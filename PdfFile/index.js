@@ -1,6 +1,6 @@
 module.exports = (pdfObj) => {
-	console.log(pdfObj);
-	const { orderData, challanNo, date, customer, invoiceNo, challanDate, modeOfPayment, orderNumber, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords } = pdfObj;
+	console.log("from invoice form");
+	const { orderData, challanNo, date, customer, invoiceNo, challanDate, modeOfPayment, orderNumber, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords, grandTotal } = pdfObj;
 	let gstFive = 0.0;
 	let gstTwelve = 0.0;
 	let gstEighteen = 0.0;
@@ -171,6 +171,7 @@ module.exports = (pdfObj) => {
 						<td>${(gstFive + gstTwelve + gstEighteen + gstTwentyEight + totalRate).toFixed(2)}</td>
 					</tr>
 				</table>
+				<div style="float: right; margin: 5px; font-weight: 700;">Round Off: ₹${grandTotal.toFixed(2)}</div>
 			</div>
 			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 285px; line-height: 1.5;">
 				<div style="margin-bottom: 20px;">
@@ -189,30 +190,35 @@ module.exports = (pdfObj) => {
 								  <th>IGST</th>
 								  <th>CGST</th>
 								  <th>SGST</th>
+								  <th>TOTAL</th>
 								</tr>
 								<tr>
 									<td>5%</td>
 									<td>${interState ? gstFive.toFixed(2) : '0.00'}</td>
 									<td>${!interState ? (gstFive/2).toFixed(2) : '0.00'}</td>
 									<td>${!interState ? (gstFive/2).toFixed(2) : '0.00'}</td>
+									<td>${gstFive.toFixed(2)}</td>
 								  </tr>
 								<tr>
 								  <td>12%</td>
 								  <td>${interState ? gstTwelve.toFixed(2) : '0.00'}</td>
 								  <td>${!interState ? (gstTwelve/2).toFixed(2) : '0.00'}</td>
 								  <td>${!interState ? (gstTwelve/2).toFixed(2) : '0.00'}</td>
+								  <td>${gstTwelve.toFixed(2)}</td>
 								</tr>
 								<tr>
 									<td>18%</td>
 									<td>${interState ? gstEighteen.toFixed(2) : '0.00'}</td>
 									<td>${!interState ? (gstEighteen/2).toFixed(2) : '0.00'}</td>
 									<td>${!interState ? (gstEighteen/2).toFixed(2) : '0.00'}</td>
+									<td>${gstEighteen.toFixed(2)}</td>
 								  </tr>
 								  <tr>
 									<td>28%</td>
 									<td>${interState ? gstTwentyEight.toFixed(2) : '0.00'}</td>
 									<td>${!interState ? (gstTwentyEight/2).toFixed(2) : '0.00'}</td>
 									<td>${!interState ? (gstTwentyEight/2).toFixed(2) : '0.00'}</td>
+									<td>${gstTwentyEight.toFixed(2)}</td>
 								  </tr>
 
 							</table>

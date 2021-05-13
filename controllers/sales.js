@@ -20,8 +20,8 @@ exports.sales_create_sales = async (req, res, next) => {
     let totalRate = 0;
     let totalGst = 0;
     req.body.orderData.map(data => {
-      totalRate = parseFloat(totalRate + (data.sellingRate * data.checkout))
-      totalGst = parseFloat(totalGst + data.sellingRate * (data.gst / 100) * data.checkout)
+      totalRate = parseFloat(totalRate + (data.sellingRate * data.checkout));
+      totalGst = parseFloat(totalGst + data.sellingRate * (data.gst / 100) * data.checkout);
     })
     global.count;
     await Sales.find({"date": { $gte: new Date(1617235200000) }}).countDocuments().exec().then(res => { global.count = ++res });
@@ -33,7 +33,7 @@ exports.sales_create_sales = async (req, res, next) => {
       date: req.body.date,
       totalRate: totalRate.toFixed(2),
       totalGst: totalGst.toFixed(2),
-      grandTotal: parseFloat(totalRate + totalGst).toFixed(2),
+      grandTotal: parseFloat((totalRate + totalGst).toFixed()).toFixed(2),
       customerName: req.body.customer.name,
       invoiceNo: global.count < 10 ?
         'SSDDN/21-22/00' + global.count
@@ -48,7 +48,7 @@ exports.sales_create_sales = async (req, res, next) => {
       destination: req.body.destination,
       termsOfDelivery: req.body.termsOfDelivery,
       interState: req.body.interState,
-      grandTotalInWords: toWords.convert(totalRate + totalGst),
+      grandTotalInWords: toWords.convert(parseFloat((totalRate + totalGst).toFixed())),
       addedBy: req.body.addedBy
     });
 
