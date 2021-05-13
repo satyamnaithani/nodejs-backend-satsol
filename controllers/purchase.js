@@ -13,6 +13,7 @@ const toWords = new ToWords({
 
 exports.purchase_get_all_item = (req, res, next) => {
     Purchase.aggregate([
+        {$match: { billDate: {$gte: new Date(1617235200000)}}},
         {
             $group:{
                 _id: {
