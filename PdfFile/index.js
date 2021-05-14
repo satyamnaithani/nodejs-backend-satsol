@@ -1,5 +1,4 @@
 module.exports = (pdfObj) => {
-	console.log("from invoice form");
 	const { orderData, challanNo, date, customer, invoiceNo, challanDate, modeOfPayment, orderNumber, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords, grandTotal } = pdfObj;
 	let gstFive = 0.0;
 	let gstTwelve = 0.0;
@@ -81,7 +80,7 @@ module.exports = (pdfObj) => {
 				<div id="header">
 					<div id="logo">
 						<div class="brand-box">
-							<strong style="font-size: 15px;">SATVIK SOLUTIONS</strong></br><br/>
+							<strong style="font-size: 20px;">SATVIK SOLUTIONS</strong></br>
 							<div>
 								Godarwaripuram, Lower Nathanpur,<br>
 								Dehradun -248001<br>
@@ -171,7 +170,7 @@ module.exports = (pdfObj) => {
 						<td>${(gstFive + gstTwelve + gstEighteen + gstTwentyEight + totalRate).toFixed(2)}</td>
 					</tr>
 				</table>
-				<div style="float: right; margin: 5px; font-weight: 700;">Round Off: ₹${grandTotal.toFixed(2)}</div>
+				<div style="float: right; margin: 5px; font-weight: 700; margin-right: 8px;"><span style="font-style: italic; font-weight: 700;">Total value rounded off: ₹${grandTotal.toFixed(2)}</span></div>
 			</div>
 			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 285px; line-height: 1.5;">
 				<div style="margin-bottom: 20px;">
@@ -186,7 +185,7 @@ module.exports = (pdfObj) => {
 							<div style="text-align: center; font-weight: 700;">GST TAX SUMMARY</div>
 							<table style="text-align: center;">
 								<tr>
-								  <th>GST%</th>
+								  <th>GST</th>
 								  <th>IGST</th>
 								  <th>CGST</th>
 								  <th>SGST</th>
