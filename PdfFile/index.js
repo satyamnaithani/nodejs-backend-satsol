@@ -83,7 +83,7 @@ module.exports = (pdfObj) => {
 				<div id="header">
 					<div id="logo">
 						<div class="brand-box">
-							<strong style="font-size: 20px; letter-spacing: 2px;">SATVIK SOLUTIONS</strong></br>
+							<strong style="font-size: 25px;">SATVIK SOLUTIONS</strong></br>
 							<div>
 								Godarwaripuram, Lower Nathanpur,<br>
 								Dehradun -248 001, UTTARAKHAND<br>
