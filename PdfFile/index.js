@@ -1,26 +1,29 @@
 module.exports = (pdfObj) => {
-	const { orderData, challanNo, date, customer, invoiceNo, challanDate, modeOfPayment, orderNumber, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords, grandTotal } = pdfObj;
+	const { orderData, challanNo, date, customer, invoiceNo, challanDate, orderNumber, orderDate, ewbNo, ewbDate, dispatchDocNo, dispatchDocDate, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords, grandTotal } = pdfObj;
 	let gstFive = 0.0;
 	let gstTwelve = 0.0;
 	let gstEighteen = 0.0;
 	let gstTwentyEight = 0.0;
 	let totalRate = 0.0;
-	let invoiceDate = new Date(date).toLocaleDateString().split('/');
-	parseInt(invoiceDate[0]) < 10 ? invoiceDate[0] = 0 + invoiceDate[0] : null;
-	parseInt(invoiceDate[1]) < 10 ? invoiceDate[1] = 0 + invoiceDate[1] : null;
-	let challanDateArray = challanDate === null ? '' : new Date(challanDate).toLocaleDateString().split('/');
-	if(challanDateArray != null) {
-		parseInt(challanDateArray[0]) < 10 ? challanDateArray[0] = 0 + challanDateArray[0] : null;
-		parseInt(challanDateArray[1]) < 10 ? challanDateArray[1] = 0 + challanDateArray[1] : null;
+	const parseDate = (unparsed_date) => {
+		if(!unparsed_date) {
+			return "";
+		}
+		let dateArray = new Date(unparsed_date).toLocaleDateString().split('/');
+		if(dateArray[0] < 10) {
+			dateArray[0] = 0 + dateArray[0];
+		}
+		if(dateArray[1] < 10) {
+			dateArray[1] = 0 + dateArray[1];
+		}
+		return dateArray[1] + '/' + dateArray[0] + '/' + dateArray[2];
 	}
 	const rowData = () => {
 		let row = '';
 		orderData.forEach((item, index) => {
 			let itemExp;
 			if(item.exp) {
-				itemExp = new Date(item.exp).toLocaleDateString().split('/');
-				parseInt(itemExp[0]) < 10 ? itemExp[0] = 0 + itemExp[0] : null;
-				parseInt(itemExp[1]) < 10 ? itemExp[1] = 0 + itemExp[1] : null;
+				itemExp = parseDate(item.exp);
 			}
 			let rate = parseFloat(item.sellingRate.toFixed(2));
 			let quantity = parseFloat(item.checkout);
@@ -42,7 +45,7 @@ module.exports = (pdfObj) => {
 			const lotExp = (lotNo, itemExp) => {
 				return `<div style="font-size: 8px">
 				${'Batch:' + lotNo}<br>
-				${'Expiry:' + itemExp[1] + '/' + itemExp[0] + '/' + itemExp[2]}
+				${'Expiry:' + itemExp}
 			   </div>`;
 			}
 			row += `<tr>
@@ -80,13 +83,19 @@ module.exports = (pdfObj) => {
 				<div id="header">
 					<div id="logo">
 						<div class="brand-box">
-							<strong style="font-size: 20px;">SATVIK SOLUTIONS</strong></br>
+							<strong style="font-size: 20px; letter-spacing: 2px;">SATVIK SOLUTIONS</strong></br>
 							<div>
 								Godarwaripuram, Lower Nathanpur,<br>
-								Dehradun -248001<br>
-								UTTARAKHAND<br>
-								email: satsolindia@gmail.com, Mbl: +919415006121/ +918787050389<br>
-								GSTIN : 058CBPN1106J1Z2 , DL# UA-DEH-106185/106186 WEF:06.03.2019
+								Dehradun -248 001, UTTARAKHAND<br>
+								<span style="font-size: 8px">
+								Tel: +919415006121 , +918787050389<br>
+								email: satsolindia@gmail.com , info@satsolindia.com<br>
+								website: satsolindia.com<br>
+								</span>
+								<span style="font-size: 9px">
+								DL# UA-DEH-106185/106186 WEF:06.03.2019<br>
+								GSTIN : 05BCBPN1106J1Z2 
+								</span>
 							</div>
 						</div>
 					</div>
@@ -97,17 +106,17 @@ module.exports = (pdfObj) => {
 								<div class="float-left"><strong>${invoiceNo}</strong></div>
 							</div>
 							<div class="sub-details-two" style="border-right: none;">
-								<div class="float-left">Date:</div><br/>
-								<div class="float-left"><strong>${invoiceDate[1] + '/' + invoiceDate[0] + '/' + invoiceDate[2]}</strong></div>
+								<div class="float-left">Invoice Date:</div><br/>
+								<div class="float-left"><strong>${parseDate(date)}</strong></div>
 							</div>
 						</div>
 						<div class="details">
 							<div class="sub-details"><div class="float-left">Challan No.:</div><br/><div class="float-left">${challanNo}</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">${challanDate === null ? '' : challanDateArray[1] + '/' + challanDateArray[0] + '/' + challanDateArray[2]}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">${parseDate(challanDate)}</div></div>
 						</div>
 						<div class="details" style="border-bottom: none;">
-							<div class="sub-details"><div class="float-left">Book No.</div><br/><div class="float-left"></div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Mode/Terms of Payment</div><br/><div class="float-left">${modeOfPayment}</div></div>
+							<div class="sub-details"><div class="float-left">Order No.:</div><br/><div class="float-left">${orderNumber}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Order Date:</div><br/><div class="float-left">${parseDate(orderDate)}</div></div>
 						</div>
 					</div>
 				</div>
@@ -125,12 +134,12 @@ module.exports = (pdfObj) => {
 					</div>
 					<div id="reference" style="border-top: none; border-bottom: none">
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Order No.:</div><br/><div class="float-left">${orderNumber}</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div><br/><div class="float-left"></div></div>
+							<div class="sub-details-reference"><div class="float-left">EWB No.:</div><br/><div class="float-left">${ewbNo}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">EWB Date:</div><br/><div class="float-left">${parseDate(ewbDate)}</div></div>
 						</div>
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div><br/><div class="float-left"></div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Date:</div><br/><div class="float-left"></div></div>
+							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div><br/><div class="float-left">${dispatchDocNo}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Dispatch Doc. Date:</div><br/><div class="float-left">${parseDate(dispatchDocDate)}</div></div>
 						</div>
 						<div class="details-bottom">
 							<div class="sub-details-reference"><div class="float-left">Dispatch Through:</div><br/><div class="float-left">${dispatchThrough}</div></div>
@@ -170,7 +179,7 @@ module.exports = (pdfObj) => {
 						<td>${(gstFive + gstTwelve + gstEighteen + gstTwentyEight + totalRate).toFixed(2)}</td>
 					</tr>
 				</table>
-				<div style="float: right; margin: 5px; font-weight: 700; margin-right: 8px;"><span style="font-style: italic; font-weight: 700;">Total value rounded off: ₹${grandTotal.toFixed(2)}</span></div>
+				<div style="float: right; margin: 5px; font-weight: 700; margin-right: 8px;"><u><span style="font-style: italic; font-weight: 700;">Total value rounded off: ₹${grandTotal.toFixed(2)}</span></u></div>
 			</div>
 			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 285px; line-height: 1.5;">
 				<div style="margin-bottom: 20px;">
@@ -227,7 +236,7 @@ module.exports = (pdfObj) => {
 							<p>We declare that this invoice shows the actual price of the goods described and all particulars are true and correct.</p>
 							<div>
 								<ol>
-									<li>1. Any claim by the purchaser which is based on a pre dispatcch defects shall be notified within 7 days from the date of the sale.</li>
+									<li>1. Any claim by the purchaser which is based on a pre dispatch defects shall be notified within 7 days from the date of the sale.</li>
 									<li>2. Interest @24% will be charged in delay payments.</li>
 								</ol>
 							</div>
@@ -261,4 +270,4 @@ module.exports = (pdfObj) => {
 	</body>
 </html>
 	`;
- };
+};
