@@ -134,11 +134,11 @@ module.exports = (pdfObj) => {
 					</div>
 					<div id="reference" style="border-top: none; border-bottom: none">
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">EWB No.:</div><br/><div class="float-left">${ewbNo}</div></div>
+							<div class="sub-details-reference"><div class="float-left">EWB No.:</div><br/><div class="float-left">${ewbNo === undefined ? "" : ewbNo}</div></div>
 							<div class="sub-details-two" style="border-right: none;"><div class="float-left">EWB Date:</div><br/><div class="float-left">${parseDate(ewbDate)}</div></div>
 						</div>
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div><br/><div class="float-left">${dispatchDocNo}</div></div>
+							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div><br/><div class="float-left">${dispatchDocNo === undefined ? "" : dispatchDocNo}</div></div>
 							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Dispatch Doc. Date:</div><br/><div class="float-left">${parseDate(dispatchDocDate)}</div></div>
 						</div>
 						<div class="details-bottom">
