@@ -53,6 +53,7 @@ exports.sales_create_sales = async (req, res, next) => {
       termsOfDelivery: req.body.termsOfDelivery,
       interState: req.body.interState,
       grandTotalInWords: toWords.convert(parseFloat((totalRate + totalGst).toFixed())),
+      remark: req.body.remark,
       addedBy: req.body.addedBy
     });
 
@@ -116,6 +117,7 @@ exports.sales_create_sales = async (req, res, next) => {
             totalRate: result.totalRate,
             grandTotal: result.grandTotal,
             transaction: result.transaction,
+            remark: result.remark,
             grandTotalInWords: result.grandTotalInWords
           }
         })

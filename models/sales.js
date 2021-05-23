@@ -23,6 +23,7 @@ const salesSchema = mongoose.Schema({
     termsOfDelivery: {type: String},
     interState: {type: Boolean, required: true},
     grandTotalInWords:{type: String, required: true},
+    remark: {type: String},
     transaction: [Object],
     addedBy: {type: String},
 });

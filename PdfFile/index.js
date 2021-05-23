@@ -1,5 +1,5 @@
 module.exports = (pdfObj) => {
-	const { orderData, challanNo, date, customer, invoiceNo, challanDate, orderNumber, orderDate, ewbNo, ewbDate, dispatchDocNo, dispatchDocDate, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords, grandTotal } = pdfObj;
+	const { orderData, challanNo, date, customer, invoiceNo, challanDate, orderNumber, orderDate, ewbNo, ewbDate, dispatchDocNo, dispatchDocDate, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords, remark, grandTotal } = pdfObj;
 	let gstFive = 0.0;
 	let gstTwelve = 0.0;
 	let gstEighteen = 0.0;
@@ -186,7 +186,7 @@ module.exports = (pdfObj) => {
 					<div>E. & O.E</div>
 					<div>Amount Chargeable(in words)</div>
 					<strong>INR ${grandTotalInWords}</strong><br/><br/>
-					<div>Remarks:</div>
+					<div>${remark === undefined || remark === "" ? "" : 'Remarks: ' + remark}</div>
 				</div>
 				<div>
 					<div style="float: left; width: 50%;">
