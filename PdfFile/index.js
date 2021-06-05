@@ -258,9 +258,9 @@ module.exports = (pdfObj) => {
 								<div>PUNB0189020</div>
 							</div>
 						</div>
-						<div style="border: 1px solid grey; height: 97px; border-bottom: none; border-right: none; padding: 6px;">
+						<div style="border: 1px solid grey; height: 112px; border-bottom: none; border-right: none; padding: 6px;">
 							<div style="text-align: center;">for SATVIK SOLUTIONS</div><br/>
-							<div style="text-align: center; margin-top: 50px;">Authorised Signatory</div>
+							<div style="text-align: center; margin-top: 60px;">Authorised Signatory</div>
 						</div>
 					</div>
 				</div>
