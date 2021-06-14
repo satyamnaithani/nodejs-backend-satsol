@@ -1,3 +1,3 @@
-const { createConnection } = require('mysql');
+const { createPool } = require('mysql');
 const { DB_CONFIG } = require('../global');
-exports.connection = createConnection(DB_CONFIG);
+exports.connection = createPool(DB_CONFIG);
