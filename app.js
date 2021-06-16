@@ -14,7 +14,7 @@ const salesRoute = require("./routes/sales");
 const purchaseRoute = require("./routes/purchase");
 const logoutRoute = require("./routes/logout-auth");
 const expenseRoute = require("./routes/expenses");
-
+const reportRoutes = require("./routes/report");
 //app.use(allowCrossDomain); // plumbing it in as middleware
 app.use(cors());
 
@@ -49,6 +49,7 @@ app.use("/sales", salesRoute);
 app.use("/purchase", purchaseRoute);
 app.use("/logout", logoutRoute);
 app.use("/expense", expenseRoute);
+app.use("/report", reportRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");
