@@ -31,7 +31,8 @@ exports.purchase_get_all_item = (req, res, next) => {
                         lotNo: "$lotNo",
                         exp: "$exp",
                         quantity: "$quantity",
-                        amount: {"$multiply" : ["$purchaseRate", "$quantity"]} 
+                        amount: {"$sum": [{"$multiply": [{"$divide": [ { "$multiply": ["$rate","$gst"] }, 100 ] }, "$quantity"]}, {"$multiply" : ["$rate", "$quantity"]}]}
+                        //amount: {"$multiply" : ["$rate", "$quantity"]} 
                     }
                 }
             }
