@@ -1,9 +1,9 @@
-const { execQuery } = require('../lib/commonFunctions');
 const { connection } = require('../models/connection.js');
 
 exports.get_all_purchases = (req, res, next) => {
     const query = `
-    SELECT DISTINCT p.bill_no, p.bill_date, p.receive_date, pt.lot_no, pt.exp, pt.quantity, pt.rate, i.code, i.name AS item, v.name, v.address
+    SELECT p.bill_no, p.bill_date, p.receive_date, v.name AS vendor, v.city,
+    GROUP_CONCAT(CONCAT('{"code":"', i.code, '", "name":"',i.name,'", "lot":"',pt.lot_no,'", "exp":"',pt.exp,'", "gst":"',i.gst,'"}')) item_list
     FROM purchase p
     INNER JOIN purchase_item pt
     ON p._id=pt.purchase_id
@@ -11,11 +11,10 @@ exports.get_all_purchases = (req, res, next) => {
     ON pt.item_id=i._id
     INNER JOIN vendors v
     ON p.vendor_id=v._id
+    GROUP BY p.bill_no, p.bill_date
     `;
-    //const query = 'select lot_no, exp, purchase_id, item_id, rate, quantity, initial_quantity from purchase_item;';
     connection.query(query, (err, result) => {
         if (err) res.status(500).json(err);
-        console.log(JSON.parse(JSON.stringify(result)));
         return res.status(200).json(result);
     });
 }
@@ -29,7 +28,10 @@ exports.create_purchase = async (req, res, next) => {
         }
         console.log('connected as id ' + con.threadId);
         con.beginTransaction((err) => {
-            if (err) throw err; 
+            if (err) {
+                res.status(500).json(err);
+                throw err;
+            }; 
             const q1 = `INSERT INTO purchase (vendor_id, bill_no, bill_date, receive_date) VALUES ('${vendor_id}', '${bill_no}', '${bill_date}', '${receive_date}');`;
             con.query(q1,(err, result) => {
                 if (err) con.rollback(() => {throw err});
@@ -43,6 +45,7 @@ exports.create_purchase = async (req, res, next) => {
                     con.commit((err) => {
                         if (err) con.rollback(() => {throw err;});
                         console.log('Purchase Transaction Complete.');
+                        res.status(201).json(result);
                         con.release();
                     });
                 });
