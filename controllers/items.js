@@ -1,6 +1,6 @@
 const { generateItemCode, execQuery } = require('../lib/commonFunctions');
 exports.get_all_items = (req, res, next) => {
-    const query = 'SELECT * FROM items;';
+    const query = 'SELECT code, name, category, hsn, gst, uom FROM items;';
     execQuery(query)
     .then((result) => res.status(200).json(result))
     .catch((err) => console.log(err));
