@@ -9,6 +9,7 @@ const vendorRoutes = require('./routes/vendors');
 const customerRoutes = require('./routes/customers');
 const purchaseRoute = require('./routes/purchase');
 const stockRoutes = require('./routes/stock');
+const salesRoutes = require('./routes/sales');
 app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,6 +20,7 @@ app.use('/customers', customerRoutes);
 app.use('/purchase', purchaseRoute);
 app.use('/stock', stockRoutes);
 app.use('/setup', setupRoutes);
+app.use('/sales', salesRoutes);
 app.use((req, res, next) => {
   const error = new Error("Not Found");
   error.status = 404;
