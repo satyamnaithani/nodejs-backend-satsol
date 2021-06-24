@@ -2,7 +2,7 @@ const { execQuery } = require('../lib/commonFunctions');
 const { connection } = require('../models/connection.js');
 
 exports.get_all_sales = (req, res, next) => {
-    const query = 'SELECT * FROM purchase_item WHERE quantity > 0;';
+    const query = 'SELECT * FROM sales';
     execQuery(query)
     .then((result) => res.status(200).json(result))
     .catch((err) => console.log(err));

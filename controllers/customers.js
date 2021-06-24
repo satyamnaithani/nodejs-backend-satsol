@@ -1,6 +1,6 @@
 const { generateCode, execQuery } = require('../lib/commonFunctions');
 exports.get_all_customers = (req, res, next) => {
-    execQuery('select code, name, address, city, state, zip, gst, dl, contact, person from customers;')
+    execQuery('select _id, code, name, address, city, state, zip, gst, dl, contact, person from customers;')
     .then((result) => res.status(200).json(parseData(result)))
     .catch((err) => console.log(err));
 }
@@ -27,8 +27,9 @@ exports.create_customer = (req, res, next) => {
 const parseData = (result) => {
     let arr=[];
         result.forEach((result) => {
-            const { code, name, address, city, state, zip, gst, dl, contact, person} = JSON.parse(JSON.stringify(result));
+            const { _id, code, name, address, city, state, zip, gst, dl, contact, person} = JSON.parse(JSON.stringify(result));
             const customer = {
+                _id: _id,
                 code: code,
                 name: name,
                 address: `${address}, ${state}, ${city}-${zip}`,
