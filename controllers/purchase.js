@@ -37,7 +37,7 @@ exports.create_purchase = async (req, res, next) => {
                 if (err) con.rollback(() => {throw err});
                 let purchase_id = result.insertId;
                 let str = "";
-                items.forEach(({lot_no, exp, item_id, quantity, rate}) => str += `('${lot_no}', '${exp}', '${item_id}', '${purchase_id}', '${quantity}', '${quantity}', '${rate}'),`)
+                items.forEach(({lot_no, exp, item_id, quantity, rate}) => str += `('${lot_no}', '${exp === '' ? '1970-01-01' : exp}', '${item_id}', '${purchase_id}', '${quantity}', '${quantity}', '${rate}'),`)
                 str = str.substring(0, str.length - 1);
                 const q2 = `INSERT INTO purchase_item (lot_no, exp, item_id, purchase_id, initial_quantity, quantity, rate) VALUES ${str}`;
                 con.query(q2, (err, result) => {

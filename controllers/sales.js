@@ -25,12 +25,13 @@ exports.create_sales = (req, res, next) => {
             con.query(q1, async(err, result) => {
                 if (err) con.rollback(() => {throw err});
                 const invoice_no = await generateInvoiceNumber(result[0].count);
-                const q2 = `INSERT INTO sales (customer_id, invoice_no, invoice_date, challan_no, challan_date, order_no, order_date, ewb_no, ewb_date, dispatch_doc_no, dispatch_doc_date, dispatch_through, terms_of_delivery, remark) VALUES ('${customer_id}', '${invoice_no}', '${invoice_date}', '${challan_no}', '${challan_date}', '${order_no}', '${order_date}', '${ewb_no}', '${ewb_date}', '${dispatch_doc_no}', '${dispatch_doc_date}', '${dispatch_through}', '${terms_of_delivery}', '${remark}');`;
+                const q2 = `INSERT INTO sales (customer_id, invoice_no, invoice_date, challan_no, challan_date, order_no, order_date, ewb_no, ewb_date, dispatch_doc_no, dispatch_doc_date, dispatch_through, terms_of_delivery, remark) VALUES ('${customer_id}', '${invoice_no}', '${invoice_date}', '${challan_no}', '${challan_date === '' ? '1970-01-01' : challan_date}', '${order_no}', '${order_date === '' ? '1970-01-01' : order_date}', '${ewb_no}', '${ewb_date === '' ? '1970-01-01' : ewb_date}', '${dispatch_doc_no}', '${dispatch_doc_date === '' ? '1970-01-01' : dispatch_doc_date}', '${dispatch_through}', '${terms_of_delivery}', '${remark}');`;
                 await con.query(q2, (err, result) => {
                     if (err) con.rollback(() => {
                         console.log(err);
                         throw err;
                     });
+                    console.log(err)
                     let sales_id = result.insertId;
                     let str = "";
                     sale_items.forEach(({purchase_item_id, selling_rate, checkout}) => str += `('${sales_id}', '${purchase_item_id}', '${selling_rate}', '${checkout}'),`)
@@ -46,7 +47,6 @@ exports.create_sales = (req, res, next) => {
                             })
                         });
                         const q4 = str;
-                        console.log(q4);
                         con.query(q4, (err, result) => {
                             if (err) con.rollback(() => {throw err});
                             con.commit((err) => {
