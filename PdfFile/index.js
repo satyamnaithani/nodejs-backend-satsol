@@ -185,8 +185,9 @@ module.exports = (pdfObj) => {
 				<div style="margin-bottom: 20px;">
 					<div>E. & O.E</div>
 					<div>Amount Chargeable(in words)</div>
-					<strong>INR ${grandTotalInWords}</strong><br/><br/>
-					<div>${remark === undefined || remark === "" ? "" : 'Remarks: ' + remark}</div>
+					<strong>INR ${grandTotalInWords}</strong><br/>
+					<span>${remark === undefined || remark === "" ? "" : 'Remarks: ' + remark}</span>
+					<br/>
 				</div>
 				<div>
 					<div style="float: left; width: 50%;">
