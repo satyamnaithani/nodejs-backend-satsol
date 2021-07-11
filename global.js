@@ -4,3 +4,9 @@ exports.DB_CONFIG = {
     password: "bEU5oaePUoPgPFq7u9sp",
     database: "b9ijkeng0f4yrjkfitj1"
 }
+
+exports.COMPANY_DETAILS = {
+    name: "XYZ",
+    city: "DEHRADUN",
+    state: "UTTARAKHAND"
+}

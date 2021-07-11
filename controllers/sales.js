@@ -1,16 +1,36 @@
 const { execQuery } = require('../lib/commonFunctions');
 const { connection } = require('../models/connection.js');
+const { COMPANY_DETAILS } = require('../global');
 
 exports.get_all_sales = (req, res, next) => {
-    const query = 'SELECT * FROM sales';
+
+    const query = `
+        SELECT s.invoice_no, DATE_FORMAT(s.invoice_date, "%d/%l/%Y") AS invoice_date, c.name AS customer_name, c.state, s.order_no, DATE_FORMAT(s.order_date, "%d/%l/%Y") AS order_date, challan_no, DATE_FORMAT(s.challan_date, "%d/%l/%Y") AS challan_date, ewb_no, DATE_FORMAT(s.ewb_date, "%d/%l/%Y") AS ewb_date, dispatch_doc_no, DATE_FORMAT(s.dispatch_doc_date, "%d/%l/%Y") AS dispatch_doc_date, dispatch_through, terms_of_delivery, remark,
+        GROUP_CONCAT(CONCAT('{"code":"', i.code, '", "name":"',i.name,'", "lot":"',pt.lot_no,'", "exp":"',pt.exp,'", "gst":"',i.gst,'", "selling_rate":"',st.selling_rate,'", "quantity":"',st.quantity,'"}')) item_list
+        FROM sales s
+        INNER JOIN sales_item st
+        ON s._id=st.sales_id
+        INNER JOIN customers c
+        ON s.customer_id=c._id
+        INNER JOIN purchase_item pt
+        ON st.purchase_item_id=pt._id
+        INNER JOIN items i
+        ON i._id=pt.item_id
+        GROUP BY s.invoice_no
+    `;
     execQuery(query)
-    .then((result) => res.status(200).json(result))
+    .then((result) => {
+        result.forEach((obj, index) => {
+            result[index]['interstate'] = obj.state !== COMPANY_DETAILS.state;
+        });
+        res.status(200).json(result);
+    })
     .catch((err) => console.log(err));
 }
 
 exports.create_sales = (req, res, next) => {
     const { sale_items, customer_id, invoice_date, challan_no, challan_date, order_no, order_date, ewb_no, ewb_date, dispatch_doc_no, dispatch_doc_date, dispatch_through, terms_of_delivery, remark } = req.body;
-    connection.getConnection(function(err, con) {
+    connection.getConnection((err, con) => {
         if (err) {
           console.error('error connecting: ' + err.stack);
           return;

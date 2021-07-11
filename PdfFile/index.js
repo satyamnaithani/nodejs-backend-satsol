@@ -1,4 +1,5 @@
 module.exports = (pdfObj) => {
+	console.log(pdfObj);
 	const { orderData, challanNo, date, customer, invoiceNo, challanDate, orderNumber, orderDate, ewbNo, ewbDate, dispatchDocNo, dispatchDocDate, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords, remark, grandTotal } = pdfObj;
 	let gstFive = 0.0;
 	let gstTwelve = 0.0;

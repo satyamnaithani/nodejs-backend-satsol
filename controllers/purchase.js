@@ -1,9 +1,10 @@
 const { connection } = require('../models/connection.js');
+const { COMPANY_DETAILS } = require('../global');
 
 exports.get_all_purchases = (req, res, next) => {
     const query = `
-    SELECT p.bill_no, p.bill_date, p.receive_date, v.name AS vendor, v.city,
-    GROUP_CONCAT(CONCAT('{"code":"', i.code, '", "name":"',i.name,'", "lot":"',pt.lot_no,'", "exp":"',pt.exp,'", "gst":"',i.gst,'"}')) item_list
+    SELECT p.bill_no, DATE_FORMAT(p.bill_date, "%d/%l/%Y") AS bill_date, DATE_FORMAT(p.receive_date, "%d/%l/%Y") AS receive_date, v.name AS vendor, v.state,
+    GROUP_CONCAT(CONCAT('{"name":"',i.name,'", "lot":"',pt.lot_no,'", "exp":"',pt.exp,'", "gst":"',i.gst,'", "quantity":"', pt.initial_quantity, '"}')) item_list
     FROM purchase p
     INNER JOIN purchase_item pt
     ON p._id=pt.purchase_id
@@ -15,6 +16,9 @@ exports.get_all_purchases = (req, res, next) => {
     `;
     connection.query(query, (err, result) => {
         if (err) res.status(500).json(err);
+        result.forEach((obj, index) => {
+            result[index]['interstate'] = obj.state !== COMPANY_DETAILS.state;
+        });
         return res.status(200).json(result);
     });
 }
