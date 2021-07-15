@@ -13,7 +13,7 @@ exports.create_invoice = (req, res, next) => {
           left: "1cm",
         },
       };
-    pdf.create(pdfTemplate(req.body), options).toFile("routes/result.pdf", (err) => {
+    pdf.create(pdfTemplate(req.body), options).toFile("controllers/result.pdf", (err) => {
       if (err) {
         res.send(Promise.reject());
         console.log(err);

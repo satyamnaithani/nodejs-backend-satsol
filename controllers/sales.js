@@ -5,8 +5,8 @@ const { COMPANY_DETAILS } = require('../global');
 exports.get_all_sales = (req, res, next) => {
 
     const query = `
-        SELECT s.invoice_no, DATE_FORMAT(s.invoice_date, "%d/%l/%Y") AS invoice_date, c.name AS customer_name, c.state, s.order_no, DATE_FORMAT(s.order_date, "%d/%l/%Y") AS order_date, challan_no, DATE_FORMAT(s.challan_date, "%d/%l/%Y") AS challan_date, ewb_no, DATE_FORMAT(s.ewb_date, "%d/%l/%Y") AS ewb_date, dispatch_doc_no, DATE_FORMAT(s.dispatch_doc_date, "%d/%l/%Y") AS dispatch_doc_date, dispatch_through, terms_of_delivery, remark,
-        GROUP_CONCAT(CONCAT('{"code":"', i.code, '", "name":"',i.name,'", "lot":"',pt.lot_no,'", "exp":"',pt.exp,'", "gst":"',i.gst,'", "selling_rate":"',st.selling_rate,'", "quantity":"',st.quantity,'"}')) item_list
+        SELECT s.invoice_no, DATE_FORMAT(s.invoice_date, "%d/%l/%Y") AS invoice_date, c.name AS customer_name, c.address, c.city, c.zip, c.gst, c.state, s.order_no, DATE_FORMAT(s.order_date, "%d/%l/%Y") AS order_date, challan_no, DATE_FORMAT(s.challan_date, "%d/%l/%Y") AS challan_date, ewb_no, DATE_FORMAT(s.ewb_date, "%d/%l/%Y") AS ewb_date, dispatch_doc_no, DATE_FORMAT(s.dispatch_doc_date, "%d/%l/%Y") AS dispatch_doc_date, dispatch_through, terms_of_delivery, remark,
+        GROUP_CONCAT(CONCAT('{"code":"', i.code, '", "name":"',i.name,'", "hsn":"',i.hsn,'", "uom":"',i.uom,'", "lot":"',pt.lot_no,'", "exp":"',pt.exp,'", "gst":"',i.gst,'", "selling_rate":"',st.selling_rate,'", "quantity":"',st.quantity,'"}')) item_list
         FROM sales s
         INNER JOIN sales_item st
         ON s._id=st.sales_id
@@ -22,6 +22,7 @@ exports.get_all_sales = (req, res, next) => {
     .then((result) => {
         result.forEach((obj, index) => {
             result[index]['interstate'] = obj.state !== COMPANY_DETAILS.state;
+            result[index]['item_list'] = parseToJSON(result[index]['item_list']);
         });
         res.status(200).json(result);
     })
@@ -93,4 +94,19 @@ const generateInvoiceNumber = (count) => {
         else invoice_no += count;
         return resolve(invoice_no);
     })
+}
+
+const parseToJSON = (item_list) => {
+    let x = JSON.parse(JSON.stringify(item_list));
+    let arr = x.split("},");
+    let a = [];
+    arr.forEach((data) => {
+        if(data.substring(data.length-1) !== '}') data += "}";
+        let obj = JSON.parse(data);
+        obj['gst'] = parseFloat(obj['gst']);
+        obj['selling_rate'] = parseFloat(obj['selling_rate']);
+        obj['quantity'] = parseFloat(obj['quantity']);
+        a.push(obj);
+    })
+    return a;
 }

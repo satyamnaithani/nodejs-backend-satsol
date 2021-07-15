@@ -1,33 +1,34 @@
 module.exports = (pdfObj) => {
 	console.log(pdfObj);
-	const { orderData, challanNo, date, customer, invoiceNo, challanDate, orderNumber, orderDate, ewbNo, ewbDate, dispatchDocNo, dispatchDocDate, dispatchThrough, destination, termsOfDelivery, interState, grandTotalInWords, remark, grandTotal } = pdfObj;
+	const { item_list, challan_no, invoice_date, customer_name, address, city, zip, gst, invoice_no, challan_date, order_no, order_date, ewb_no, ewb_date, dispatch_doc_no, dispatch_doc_date, dispatch_through, state, terms_of_delivery, interstate, remark } = pdfObj;
 	let gstFive = 0.0;
 	let gstTwelve = 0.0;
 	let gstEighteen = 0.0;
 	let gstTwentyEight = 0.0;
 	let totalRate = 0.0;
 	const parseDate = (unparsed_date) => {
-		if(!unparsed_date) {
-			return "";
-		}
-		let dateArray = new Date(unparsed_date).toLocaleDateString().split('/');
-		if(dateArray[0] < 10) {
-			dateArray[0] = 0 + dateArray[0];
-		}
-		if(dateArray[1] < 10) {
-			dateArray[1] = 0 + dateArray[1];
-		}
-		return dateArray[1] + '/' + dateArray[0] + '/' + dateArray[2];
+		// if(!unparsed_date) {
+		// 	return "";
+		// }
+		// let dateArray = new Date(unparsed_date).toLocaleDateString().split('/');
+		// if(dateArray[0] < 10) {
+		// 	dateArray[0] = 0 + dateArray[0];
+		// }
+		// if(dateArray[1] < 10) {
+		// 	dateArray[1] = 0 + dateArray[1];
+		// }
+		// return dateArray[1] + '/' + dateArray[0] + '/' + dateArray[2];
+		return unparsed_date;
 	}
 	const rowData = () => {
 		let row = '';
-		orderData.forEach((item, index) => {
+		item_list.forEach((item, index) => {
 			let itemExp;
 			if(item.exp) {
 				itemExp = parseDate(item.exp);
 			}
-			let rate = parseFloat(item.sellingRate.toFixed(2));
-			let quantity = parseFloat(item.checkout);
+			let rate = parseFloat(item.selling_rate);
+			let quantity = parseFloat(item.quantity);
 			let total = rate * quantity;
 			totalRate += total;
 			let totalGst = total * (item.gst / 100);
@@ -51,10 +52,10 @@ module.exports = (pdfObj) => {
 			}
 			row += `<tr>
 			<td>${++index}</td>
-			<td>${item.itemCode}</td>
+			<td>${item.code}</td>
 			<td style="text-align: left">
-				<strong>${item.item}</strong><br>
-				${item.lotNo === '0' ? '' : lotExp(item.lotNo, itemExp)}
+				<strong>${item.name}</strong><br>
+				${item.lot === '0' ? '' : lotExp(item.lot, itemExp)}
 			</td>
 			<td>${item.hsn}</td>
 			<td>${quantity}</td>
@@ -86,7 +87,7 @@ module.exports = (pdfObj) => {
 						<div class="brand-box">
 							<strong style="font-size: 25px;">SATVIK SOLUTIONS</strong></br>
 							<div>
-								Godarwaripuram, Lower Nathanpur,<br>
+								Godawaripuram, Lower Nathanpur,<br>
 								Dehradun -248 001, UTTARAKHAND<br>
 								<span style="font-size: 8px">
 								Tel: +919415006121 , +918787050389<br>
@@ -104,20 +105,20 @@ module.exports = (pdfObj) => {
 						<div class="details">
 							<div class="sub-details">
 								<div class="float-left">Invoice No.</div><br/>
-								<div class="float-left"><strong>${invoiceNo}</strong></div>
+								<div class="float-left"><strong>${invoice_no}</strong></div>
 							</div>
 							<div class="sub-details-two" style="border-right: none;">
 								<div class="float-left">Invoice Date:</div><br/>
-								<div class="float-left"><strong>${parseDate(date)}</strong></div>
+								<div class="float-left"><strong>${parseDate(invoice_date)}</strong></div>
 							</div>
 						</div>
 						<div class="details">
-							<div class="sub-details"><div class="float-left">Challan No.:</div><br/><div class="float-left">${challanNo}</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">${parseDate(challanDate)}</div></div>
+							<div class="sub-details"><div class="float-left">Challan No.:</div><br/><div class="float-left">${challan_no}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Challan Date:</div><br/><div class="float-left">${parseDate(challan_date)}</div></div>
 						</div>
 						<div class="details" style="border-bottom: none;">
-							<div class="sub-details"><div class="float-left">Order No.:</div><br/><div class="float-left">${orderNumber}</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Order Date:</div><br/><div class="float-left">${parseDate(orderDate)}</div></div>
+							<div class="sub-details"><div class="float-left">Order No.:</div><br/><div class="float-left">${order_no}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Order Date:</div><br/><div class="float-left">${parseDate(order_date)}</div></div>
 						</div>
 					</div>
 				</div>
@@ -126,27 +127,27 @@ module.exports = (pdfObj) => {
 						<div class="brand-box" style="padding-top: 5px;">
 							<p style="font-style: italic; margin-bottom: 10px;">Consignee:</p>
 							<div style="font-weight: 600;">
-								${customer.name}<br>
-								${customer.address},<br>
-								${customer.city} - ${customer.zip}<br>
-								${customer.gst !== 'NO' ? 'GSTIN :'.concat(customer.gst) : ''}
+								${customer_name}<br>
+								${address},<br>
+								${city} - ${zip}<br>
+								${gst !== '' ? 'GSTIN :'.concat(gst) : ''}
 							</div>
 						</div>
 					</div>
 					<div id="reference" style="border-top: none; border-bottom: none">
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">EWB No.:</div><br/><div class="float-left">${ewbNo === undefined ? "" : ewbNo}</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">EWB Date:</div><br/><div class="float-left">${parseDate(ewbDate)}</div></div>
+							<div class="sub-details-reference"><div class="float-left">EWB No.:</div><br/><div class="float-left">${ewb_no === undefined ? "" : ewb_no}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">EWB Date:</div><br/><div class="float-left">${parseDate(ewb_date)}</div></div>
 						</div>
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div><br/><div class="float-left">${dispatchDocNo === undefined ? "" : dispatchDocNo}</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Dispatch Doc. Date:</div><br/><div class="float-left">${parseDate(dispatchDocDate)}</div></div>
+							<div class="sub-details-reference"><div class="float-left">Dispatch Doc. No.:</div><br/><div class="float-left">${dispatch_doc_no === undefined ? "" : dispatch_doc_no}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Dispatch Doc. Date:</div><br/><div class="float-left">${parseDate(dispatch_doc_date)}</div></div>
 						</div>
 						<div class="details-bottom">
-							<div class="sub-details-reference"><div class="float-left">Dispatch Through:</div><br/><div class="float-left">${dispatchThrough}</div></div>
-							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Destination:</div><br/><div class="float-left">${destination}</div></div>
+							<div class="sub-details-reference"><div class="float-left">Dispatch Through:</div><br/><div class="float-left">${dispatch_through}</div></div>
+							<div class="sub-details-two" style="border-right: none;"><div class="float-left">Destination:</div><br/><div class="float-left">${state}</div></div>
 						</div>
-						<div class="details-bottom" style="border-bottom: none;"><div class="float-left">Terms of Delivery:</div><br/><div class="float-left">${termsOfDelivery}</div></div>
+						<div class="details-bottom" style="border-bottom: none;"><div class="float-left">Terms of Delivery:</div><br/><div class="float-left">${terms_of_delivery}</div></div>
 					</div>
 				</div>
 			</div>
@@ -180,14 +181,14 @@ module.exports = (pdfObj) => {
 						<td>${(gstFive + gstTwelve + gstEighteen + gstTwentyEight + totalRate).toFixed(2)}</td>
 					</tr>
 				</table>
-				<div style="float: right; margin: 5px; font-weight: 700; margin-right: 8px;"><u><span style="font-style: italic; font-weight: 700;">Total value rounded off: ₹${grandTotal.toFixed(2)}</span></u></div>
+				<div style="float: right; margin: 5px; font-weight: 700; margin-right: 8px;"><u><span style="font-style: italic; font-weight: 700;">Total value rounded off: ₹${'grandTotal.toFixed(2)'}</span></u></div>
 			</div>
 			<div style="border: 1px solid grey; border-top: none; padding: 5px 0 5px 5px; height: 285px; line-height: 1.5;">
 				<div style="margin-bottom: 20px;">
 					<div>E. & O.E</div>
 					<div>Amount Chargeable(in words)</div>
-					<strong>INR ${grandTotalInWords}</strong><br/><br/>
-					<div>${remark === undefined || remark === "" ? "" : 'Remarks: ' + remark}</div>
+					<strong>INR ${'grandTotalInWords'}</strong><br/>
+					<span>${remark === undefined || remark === "" ? "" : 'Remarks: ' + remark}</span><br/>
 				</div>
 				<div>
 					<div style="float: left; width: 50%;">
@@ -203,30 +204,30 @@ module.exports = (pdfObj) => {
 								</tr>
 								<tr>
 									<td>5%</td>
-									<td>${interState ? gstFive.toFixed(2) : '0.00'}</td>
-									<td>${!interState ? (gstFive/2).toFixed(2) : '0.00'}</td>
-									<td>${!interState ? (gstFive/2).toFixed(2) : '0.00'}</td>
+									<td>${interstate ? gstFive.toFixed(2) : '0.00'}</td>
+									<td>${!interstate ? (gstFive/2).toFixed(2) : '0.00'}</td>
+									<td>${!interstate ? (gstFive/2).toFixed(2) : '0.00'}</td>
 									<td>${gstFive.toFixed(2)}</td>
 								  </tr>
 								<tr>
 								  <td>12%</td>
-								  <td>${interState ? gstTwelve.toFixed(2) : '0.00'}</td>
-								  <td>${!interState ? (gstTwelve/2).toFixed(2) : '0.00'}</td>
-								  <td>${!interState ? (gstTwelve/2).toFixed(2) : '0.00'}</td>
+								  <td>${interstate ? gstTwelve.toFixed(2) : '0.00'}</td>
+								  <td>${!interstate ? (gstTwelve/2).toFixed(2) : '0.00'}</td>
+								  <td>${!interstate ? (gstTwelve/2).toFixed(2) : '0.00'}</td>
 								  <td>${gstTwelve.toFixed(2)}</td>
 								</tr>
 								<tr>
 									<td>18%</td>
-									<td>${interState ? gstEighteen.toFixed(2) : '0.00'}</td>
-									<td>${!interState ? (gstEighteen/2).toFixed(2) : '0.00'}</td>
-									<td>${!interState ? (gstEighteen/2).toFixed(2) : '0.00'}</td>
+									<td>${interstate ? gstEighteen.toFixed(2) : '0.00'}</td>
+									<td>${!interstate ? (gstEighteen/2).toFixed(2) : '0.00'}</td>
+									<td>${!interstate ? (gstEighteen/2).toFixed(2) : '0.00'}</td>
 									<td>${gstEighteen.toFixed(2)}</td>
 								  </tr>
 								  <tr>
 									<td>28%</td>
-									<td>${interState ? gstTwentyEight.toFixed(2) : '0.00'}</td>
-									<td>${!interState ? (gstTwentyEight/2).toFixed(2) : '0.00'}</td>
-									<td>${!interState ? (gstTwentyEight/2).toFixed(2) : '0.00'}</td>
+									<td>${interstate ? gstTwentyEight.toFixed(2) : '0.00'}</td>
+									<td>${!interstate ? (gstTwentyEight/2).toFixed(2) : '0.00'}</td>
+									<td>${!interstate ? (gstTwentyEight/2).toFixed(2) : '0.00'}</td>
 									<td>${gstTwentyEight.toFixed(2)}</td>
 								  </tr>
 
