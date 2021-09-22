@@ -128,7 +128,7 @@ module.exports = (pdfObj) => {
 								${customer.name}<br>
 								${customer.address},<br>
 								${customer.city} - ${customer.zip}<br>
-								${customer.gst !== 'NO' ? 'GSTIN :'.concat(customer.gst) : ''}
+								
 							</div>
 						</div>
 					</div>
