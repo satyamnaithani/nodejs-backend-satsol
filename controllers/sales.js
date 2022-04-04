@@ -24,7 +24,7 @@ exports.sales_create_sales = async (req, res, next) => {
       totalGst = parseFloat(totalGst + data.sellingRate * (data.gst / 100) * data.checkout);
     })
     global.count;
-    await Sales.find({"date": { $gte: new Date(1617235200000) }}).countDocuments().exec().then(res => { global.count = ++res });
+    await Sales.find({"date": { $gte: new Date(1648796400000) }}).countDocuments().exec().then(res => { global.count = ++res });
 
     const sales = new Sales({
       _id: new mongoose.Types.ObjectId(),
@@ -36,10 +36,10 @@ exports.sales_create_sales = async (req, res, next) => {
       grandTotal: parseFloat((totalRate + totalGst).toFixed()).toFixed(2),
       customerName: req.body.customer.name,
       invoiceNo: global.count < 10 ?
-        'SSDDN/21-22/00' + global.count
+        'SSDDN/22-23/00' + global.count
         : global.count >= 10 && global.count <= 99 ?
-          'SSDDN/21-22/0' + global.count
-          : 'SSDDN/21-22/' + global.count,
+          'SSDDN/22-23/0' + global.count
+          : 'SSDDN/22-23/' + global.count,
       challanNo: req.body.challanNo,
       challanDate: req.body.challanDate,
       orderNumber: req.body.orderNumber,
@@ -140,8 +140,8 @@ exports.sales_create_sales = async (req, res, next) => {
 
 exports.sales_get_sales = (req, res, next) => {
   global.count;
-  Sales.find({"date": { $gte: new Date(1617235200000) }}).count().exec().then(response => global.count = response).catch(error => res.status(500).json(error))
-  Sales.find({"date": { $gte: new Date(1617235200000) }})
+  Sales.find({"date": { $gte: new Date(1648796400000) }}).count().exec().then(response => global.count = response).catch(error => res.status(500).json(error))
+  Sales.find({"date": { $gte: new Date(1648796400000) }})
     .sort({ _id: -1 })
     .skip(parseInt(req.params.skip))
     .limit(parseInt(req.params.limit))
