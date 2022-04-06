@@ -140,8 +140,8 @@ exports.sales_create_sales = async (req, res, next) => {
 
 exports.sales_get_sales = (req, res, next) => {
   global.count;
-  Sales.find({"date": { $gte: new Date(1648796400000) }}).count().exec().then(response => global.count = response).catch(error => res.status(500).json(error))
-  Sales.find({"date": { $gte: new Date(1648796400000) }})
+  Sales.find({"date": { $gte: new Date(1617235200000) }}).count().exec().then(response => global.count = response).catch(error => res.status(500).json(error))
+  Sales.find({"date": { $gte: new Date(1617235200000) }})
     .sort({ _id: -1 })
     .skip(parseInt(req.params.skip))
     .limit(parseInt(req.params.limit))
