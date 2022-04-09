@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -55,6 +56,7 @@ app.use((req, res, next) => {
 
 app.use((error, req, res, next) => {
   res.status(error.status || 500);
+  console.log(process.env.MONGO)
   res.json({
     error: {
       author: "Satyam Naithani",
