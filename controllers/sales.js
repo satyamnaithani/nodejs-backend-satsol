@@ -36,10 +36,10 @@ exports.sales_create_sales = async (req, res, next) => {
       grandTotal: parseFloat((totalRate + totalGst).toFixed()).toFixed(2),
       customerName: req.body.customer.name,
       invoiceNo: global.count < 10 ?
-        'SSDDN/22-23/00' + global.count
+        `${process.env.INVOICE_FORMAT}/22-23/00` + global.count
         : global.count >= 10 && global.count <= 99 ?
-          'SSDDN/22-23/0' + global.count
-          : 'SSDDN/22-23/' + global.count,
+          `${process.env.INVOICE_FORMAT}/22-23/0` + global.count
+          : `${process.env.INVOICE_FORMAT}/22-23/` + global.count,
       challanNo: req.body.challanNo,
       challanDate: req.body.challanDate,
       orderNumber: req.body.orderNumber,
