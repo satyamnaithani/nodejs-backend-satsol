@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -18,11 +19,7 @@ const reportRoutes = require("./routes/report");
 //app.use(allowCrossDomain); // plumbing it in as middleware
 app.use(cors());
 
-mongoose.connect(
-  "mongodb+srv://satsol:" +
-    process.env.MONGO_ATLAS_PW +
-    "@cluster0-wmljt.mongodb.net/test?retryWrites=true&w=majority"
-);
+mongoose.connect(process.env.MONGODB);
 
 // mongoose.connect(
 //   "mongodb+srv://satsol:2346@cluster0.0xn3d.mongodb.net/test?retryWrites=true&w=majority"
