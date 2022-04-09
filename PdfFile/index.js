@@ -85,8 +85,8 @@ module.exports = (pdfObj) => {
 						<div class="brand-box">
 							<strong style="font-size: 25px;">SATVIK SOLUTIONS</strong></br>
 							<div>
-								Godawaripuram, Lower Nathanpur,<br>
-								Dehradun -248 001, UTTARAKHAND<br>
+								A-1393/1, Indira Nagar<br>
+								Lucknow -226 016, Uttar Pradesh<br>
 								<span style="font-size: 8px">
 								Tel: +919415006121 , +918787050389<br>
 								email: satsolindia@gmail.com , info@satsolindia.com<br>
@@ -94,7 +94,7 @@ module.exports = (pdfObj) => {
 								</span>
 								<span style="font-size: 9px">
 								DL# UA-DEH-106185/106186 WEF:06.03.2019<br>
-								GSTIN : 05BCBPN1106J1Z2 
+								GSTIN : 09BCBPN1106J1ZU 
 								</span>
 							</div>
 						</div>
@@ -253,10 +253,10 @@ module.exports = (pdfObj) => {
 								<div>IFSC Code:</div>
 							</div>
 							<div style="float: right; margin-right: 5px;">
-								<div>Punjab National Bank</div>
-								<div>1890050002561</div>
-								<div>Dharampur, Dehradun - 248 001</div>
-								<div>PUNB0189020</div>
+								<div>Indian Bank</div>
+								<div>6759192854</div>
+								<div>Indira Nagar, Lucknow - 226 016</div>
+								<div>IDIB0001012</div>
 							</div>
 						</div>
 						<div style="border: 1px solid grey; height: 112px; border-bottom: none; border-right: none; padding: 6px;">
@@ -266,7 +266,7 @@ module.exports = (pdfObj) => {
 					</div>
 				</div>
 			</div>
-			<div style="text-align: center; margin-top: 5px;">SUBJECT IN DEHRADUN JURISDICTION</div>
+			<div style="text-align: center; margin-top: 5px;">SUBJECT IN LUCKNOW JURISDICTION</div>
 		</div>
 	</body>
 </html>

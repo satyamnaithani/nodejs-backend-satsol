@@ -3,6 +3,6 @@
         "MONGO_ATLAS_PW": "sattu2346",
         "JWT_KEY": "satviksolutions",
         "INVOICE_FORMAT": "SSLKO",
-        "MONGODB": ""
+        "MONGODB": "mongodb+srv://ss-lko:veS1D2b9OqPL2Lky@cluster0.a3ka3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
     }
 }
