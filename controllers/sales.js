@@ -24,7 +24,7 @@ exports.sales_create_sales = async (req, res, next) => {
       totalGst = parseFloat(totalGst + data.sellingRate * (data.gst / 100) * data.checkout);
     })
     global.count;
-    await Sales.find({"date": { $gte: new Date(1648796400000) }}).countDocuments().exec().then(res => { global.count = ++res });
+    await Sales.find({"date": { $gte: new Date(1648755000000) }}).countDocuments().exec().then(res => { global.count = ++res });
 
     const sales = new Sales({
       _id: new mongoose.Types.ObjectId(),
