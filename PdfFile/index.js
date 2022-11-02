@@ -85,7 +85,7 @@ module.exports = (pdfObj) => {
 						<div class="brand-box">
 							<strong style="font-size: 25px;">SATVIK SOLUTIONS</strong></br>
 							<div>
-								Godawaripuram, Lower Nathanpur,<br>
+								146, Dharampur-2, Old Nehru Colony<br>
 								Dehradun -248 001, UTTARAKHAND<br>
 								<span style="font-size: 8px">
 								Tel: +919415006121 , +918787050389<br>
