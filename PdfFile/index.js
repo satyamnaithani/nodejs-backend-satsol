@@ -9,14 +9,24 @@ module.exports = (pdfObj) => {
 		if(!unparsed_date) {
 			return "";
 		}
-		let dateArray = new Date(unparsed_date).toLocaleDateString().split('/');
-		if(dateArray[0] < 10) {
-			dateArray[0] = 0 + dateArray[0];
-		}
-		if(dateArray[1] < 10) {
-			dateArray[1] = 0 + dateArray[1];
-		}
-		return dateArray[1] + '/' + dateArray[0] + '/' + dateArray[2];
+		const today = new Date(unparsed_date);
+		const yyyy = today.getFullYear();
+		let mm = today.getMonth() + 1; // Months start at 0!
+		let dd = today.getDate();
+
+		if (dd < 10) dd = '0' + dd;
+		if (mm < 10) mm = '0' + mm;
+
+		const formattedToday = dd + '/' + mm + '/' + yyyy;
+		return formattedToday;
+		// let dateArray = new Date(unparsed_date).toLocaleDateString().split('/');
+		// if(dateArray[0] < 10) {
+		// 	dateArray[0] = 0 + dateArray[0];
+		// }
+		// if(dateArray[1] < 10) {
+		// 	dateArray[1] = 0 + dateArray[1];
+		// }
+		// return dateArray[1] + '/' + dateArray[0] + '/' + dateArray[2];
 	}
 	const rowData = () => {
 		let row = '';
