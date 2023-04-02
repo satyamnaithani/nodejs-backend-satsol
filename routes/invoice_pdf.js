@@ -5,6 +5,18 @@ const router = express.Router();
 const pdf = require("html-pdf");
 const pdfTemplate = require("../PdfFile/index");
 
+// const options = {
+//   format: "A4",
+//   width: "9.5in",
+//   height: "16.5in",
+//   // border: {
+//   //   top: "1cm", // default is 0, units: mm, cm, in, px
+//   //   right: "1cm",
+//   //   bottom: "2cm",
+//   //   left: "1cm",
+//   // },
+// };
+
 const options = {
   format: "A4",
   width: "11in",

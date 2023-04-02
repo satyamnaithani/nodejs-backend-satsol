@@ -58,6 +58,7 @@ module.exports = (pdfObj) => {
 				${'Expiry:' + itemExp}
 			   </div>`;
 			}
+			// row += `<tr style="height: 490px;">
 			row += `<tr>
 			<td>${++index}</td>
 			<td>${item.itemCode}</td>
