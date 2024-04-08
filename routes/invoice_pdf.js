@@ -19,15 +19,16 @@ const pdfTemplate = require("../PdfFile/index");
 
 const options = {
   format: "A4",
-  width: "11in",
-  height: "17in",
+  width: "5in",
+  height: "9in",
   border: {
-    top: "2cm", // default is 0, units: mm, cm, in, px
-    right: "1cm",
-    bottom: "3cm",
-    left: "1cm",
+    top: "1cm", // default is 0, units: mm, cm, in, px
+    right: "0cm",
+    bottom: "5cm",
+    left: "0cm",
   },
 };
+
 router.post("/create-pdf", (req, res) => {
   pdf
     .create(pdfTemplate(req.body), options)
