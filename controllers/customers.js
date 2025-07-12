@@ -96,18 +96,18 @@ exports.customers_update_customer =  (req, res, next) => {
     }
 exports.customers_delete_customer = (req, res, next) => {
     const id = req.params.id;
-    Product.remove({_id: id})
-    .exec()
-    .then(result => {
-        res.status(200).json({
-            message: 'Product deleted',
-            result: result
+    Customer.remove({ _id: id })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Customer deleted',
+                result: result,
+            });
         })
-    })
-    .catch(err => {
-        console.log(err)
-        res.status(500).json({
-            error: err
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err,
+            });
         });
-    });
-}
+};
